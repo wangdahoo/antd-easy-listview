@@ -1,5 +1,5 @@
 {
-  "name": "antd-easy-listview",
+  "name": "@wangdahoo/antd-easy-listview",
   "version": "0.1.0",
   "main": "dist/index.js",
   "umd": "dist/umd/index.js",
