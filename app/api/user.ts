@@ -1,4 +1,4 @@
-import { SearchApi, CreateApi, UpdateApi } from "../../src/types"
+import { SearchApi, CreateApi, UpdateApi } from '../../src/types'
 
 let id: number = 0
 
@@ -33,15 +33,21 @@ export const getAllUsers: SearchApi<User> = (props: any) => {
         .filter(u => {
             if (keyword === '') return true
 
-            return filters.reduce((result: boolean, filter: string) => {
+            const result =  filters.reduce((result: boolean, filter: string) => {
                 return result || u[filter].indexOf(keyword) > -1
-            }, true)
+            }, false)
+
+            // console.log(u, result)
+
+            return result
         })
 
+    console.log(keyword, filters)
     console.log('filteredUsers =>', filteredUsers.slice((pageNum - 1) * pageSize, pageNum * pageSize))
 
     const result = {
-        items: filteredUsers.slice((pageNum - 1) * pageSize, pageNum * pageSize).map((u, uIndex) => ({ ...u, key: u.id, index: uIndex + pageSize * (pageNum - 1) + 1 })),
+        items: filteredUsers.slice((pageNum - 1) * pageSize, pageNum * pageSize)
+            .map((u, uIndex) => ({ ...u, key: u.id, index: uIndex + pageSize * (pageNum - 1) + 1 })),
         total: filteredUsers.length,
         pageNum,
         pageSize

@@ -1,6 +1,7 @@
 import { FormItemType } from '@wangdahoo/antd-easy-form'
-import '../dist/index.css'
-import { createListViewOptions, createListView } from '../dist'
+// import '../dist/index.css'
+// import { createListViewOptions, createListView } from '../dist'
+import { createListViewOptions, createListView } from '../src'
 import { getAllUsers, createUser, updateUser, deleteUsers, User } from './api'
 
 const createFormItems = (props: any) => [

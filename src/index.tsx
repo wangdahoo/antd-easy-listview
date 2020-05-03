@@ -3,7 +3,7 @@ import '@wangdahoo/antd-easy-form/dist/index.css'
 
 import React, { useState, useRef, useEffect } from 'react'
 import { Layout, Card, Table, Button, Input, Drawer, Modal, message } from 'antd'
-import { ReloadOutlined, PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons'
+import { ReloadOutlined, PlusOutlined, EditOutlined, DeleteOutlined, SearchOutlined } from '@ant-design/icons'
 import { Form } from '@wangdahoo/antd-easy-form/src'
 import classnames from 'classnames'
 import FullscreenModal from './FullscreenModal'
@@ -112,22 +112,22 @@ export function createListView<T>(options: ListViewOptions<T>) {
             // console.log('onEdit: ', record)
 
             if (createDetailComponent) {
-              setRecord(null)
-              setTimeout(() => {
-                setRecord(record)
+                setRecord(null)
+                setTimeout(() => {
+                    setRecord(record)
 
-                if (detailRef.current !== null) {
-                    (detailRef.current as any).setVisible(true)
-                }
-              })
-              return
+                    if (detailRef.current !== null) {
+                        (detailRef.current as any).setVisible(true)
+                    }
+                })
+                return
             }
 
             setRecord(record)
             setDrawerTitle(`编辑${itemName}`)
             setDrawerVisible(true)
             setFormType(FORM_TYPE_UPDATE)
-          }
+        }
 
         function onDelete(record: T) {
             Modal.confirm({
@@ -218,6 +218,10 @@ export function createListView<T>(options: ListViewOptions<T>) {
                     style={{ flex: 1 }}
                     value={keyword}
                     onChange={e => setKeyword(e.target.value)}
+                    onSearch={async () => {
+                        await onFetchItems(keyword, filters, 1, pagination.pageSize)
+                    }}
+                    enterButton={<Button type="primary" icon={<SearchOutlined />}>搜索</Button>}
                 />
                 <Button type="primary" icon={<ReloadOutlined />} style={{ marginLeft: 10 }} onClick={onRefresh}>
                     刷新
@@ -261,11 +265,11 @@ export function createListView<T>(options: ListViewOptions<T>) {
                             {listContent}
                         </Card>
                     ) : (
-                            <div style={{ backgroundColor: '#fff' }}>
-                                <div style={{ paddingBottom: 16 }}>{listExtra}</div>
-                                {listContent}
-                            </div>
-                        )}
+                        <div style={{ backgroundColor: '#fff' }}>
+                            <div style={{ paddingBottom: 16 }}>{listExtra}</div>
+                            {listContent}
+                        </div>
+                    )}
 
                     {/* create or update item */}
                     <Drawer
