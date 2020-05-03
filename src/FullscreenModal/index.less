@@ -1,0 +1,29 @@
+@prefix: .elv;
+
+.ant-modal.@{prefix}-fullscreen-modal {
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    width: 100% !important;
+    min-height: 100vh !important;
+    overflow-x: hidden;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    >.ant-modal-content {
+        border-radius: 0 !important;
+
+        >.ant-modal-header,
+        >.ant-modal-footer {
+            border-radius: 0 !important;
+        }
+
+        >.ant-modal-body {
+            background-color: rgb(240, 242, 245);
+            min-height: calc(100vh - 65px);
+        }
+    }
+}
