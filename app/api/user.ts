@@ -11,9 +11,10 @@ export interface User {
     age: number
 }
 
-const log = (action: string) => console.log(action, users)
+// const log = (action: string) => console.log(action, users)
+const log = (action: string) => void 0
 
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 25; i++) {
     users.push({
         id: ++id,
         name: `王${i}虎`,
@@ -27,14 +28,20 @@ export const getAllUsers: SearchApi<User> = (props: any) => {
     const pageNum = props.pageNum as number
     const pageSize = props.pageSize as number
 
-    const filteredUsers = users.sort((a, b) => b.id - a.id).filter(u => {
-        return filters.reduce((result: boolean, filter: string) => {
-            return result || u[filter].indexOf(keyword) > -1
-        }, true)
-    })
+    let filteredUsers = users
+        .sort((a, b) => b.id - a.id)
+        .filter(u => {
+            if (keyword === '') return true
+
+            return filters.reduce((result: boolean, filter: string) => {
+                return result || u[filter].indexOf(keyword) > -1
+            }, true)
+        })
+
+    console.log('filteredUsers =>', filteredUsers.slice((pageNum - 1) * pageSize, pageNum * pageSize))
 
     const result = {
-        items: filteredUsers.slice((pageNum - 1) * pageSize, pageSize).map((u, uIndex) => ({ ...u, key: u.id, index: uIndex + pageSize * (pageNum - 1) + 1 })),
+        items: filteredUsers.slice((pageNum - 1) * pageSize, pageNum * pageSize).map((u, uIndex) => ({ ...u, key: u.id, index: uIndex + pageSize * (pageNum - 1) + 1 })),
         total: filteredUsers.length,
         pageNum,
         pageSize

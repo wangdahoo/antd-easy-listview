@@ -66,19 +66,21 @@ export function createListView<T>(options: ListViewOptions<T>) {
 
         useEffect(() => {
             if (props.created) props.created()
-            onFetchItems()
+            onFetchItems(keyword, filters, pagination.pageNum, pagination.pageSize)
             setInnerTableColumns(createTableColumns(tableColumns, renderOperations))
         }, [props])
 
-        async function onFetchItems() {
+        async function onFetchItems(keyword: string, filters: string[], pageNum: number, pageSize: number) {
             const searchProps = {
                 keyword,
                 filters,
-                pageNum: pagination.pageNum,
-                pageSize: pagination.pageSize
+                pageNum,
+                pageSize
             }
 
-            const { items, total, pageNum, pageSize } = await fetchItems(searchProps, props)
+            // console.log('searchProps =>', searchProps)
+
+            const { items, total } = await fetchItems(searchProps, props)
             setItems(items || [])
             setPagination({
                 total,
@@ -88,7 +90,7 @@ export function createListView<T>(options: ListViewOptions<T>) {
         }
 
         async function onRefresh() {
-            await onFetchItems()
+            await onFetchItems(keyword, filters, pagination.pageNum, pagination.pageSize)
         }
 
         function onCreate() {
@@ -107,7 +109,7 @@ export function createListView<T>(options: ListViewOptions<T>) {
         }
 
         function onEdit(record: T) {
-            console.log('onEdit: ', record)
+            // console.log('onEdit: ', record)
 
             if (createDetailComponent) {
               setRecord(null)
@@ -135,7 +137,7 @@ export function createListView<T>(options: ListViewOptions<T>) {
                 onOk: async function () {
                     await deleteItem(record, props)
                     message.success(`删除${itemName}成功`)
-                    await onFetchItems()
+                    await onFetchItems(keyword, filters, 1, pagination.pageSize)
                 }
             })
         }
@@ -152,7 +154,7 @@ export function createListView<T>(options: ListViewOptions<T>) {
             }
 
             setDrawerVisible(false)
-            await onFetchItems()
+            await onFetchItems(keyword, filters, 1, pagination.pageSize)
         }
 
         const renderOperations = (_: any, record: T) => {
@@ -236,7 +238,13 @@ export function createListView<T>(options: ListViewOptions<T>) {
                     current: pagination.pageNum,
                     pageSize: pagination.pageSize,
                     showTotal: (total, [start, end]) => `共 ${total} 条记录，当前 ${start} ~ ${end}`,
-                    showSizeChanger: true
+                    showSizeChanger: true,
+                    onChange: async (pageNum, pageSize) => {
+                        await onFetchItems(keyword, filters, pageNum, pageSize || pagination.pageSize)
+                    },
+                    onShowSizeChange: async (_, newPageSize: number) => {
+                        await onFetchItems(keyword, filters, 1, newPageSize)
+                    }
                 }}
             />
         )
@@ -282,12 +290,12 @@ export function createListView<T>(options: ListViewOptions<T>) {
                         <FullscreenModal
                             title={detailTitle}
                             ref={detailRef}
-                            onBack={onFetchItems}
+                            onBack={() => onFetchItems(keyword, filters, 1, pagination.pageSize)}
                             itemName={itemName}
                             onDelete={async () => {
                                 await deleteItem(record, props)
                                 message.success(`删除${itemName}成功`)
-                                await onFetchItems()
+                                await onFetchItems(keyword, filters, 1, pagination.pageSize)
                             }}
                         >
                             {createDetailComponent ? createDetailComponent(record, props) : null}
@@ -299,7 +307,7 @@ export function createListView<T>(options: ListViewOptions<T>) {
                         <FullscreenModal
                             title={creationTitle}
                             ref={creationRef}
-                            onBack={onFetchItems}
+                            onBack={() => onFetchItems(keyword, filters, 1, pagination.pageSize)}
                             itemName={itemName}
                         >
                             {createCreationComponent ? createCreationComponent(props) : null}
