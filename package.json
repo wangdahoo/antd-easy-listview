@@ -46,7 +46,8 @@
     "typescript": "^3.8.3"
   },
   "scripts": {
-    "start": "parcel serve -d docs app/index.html",
+    "start": "parcel serve -d .tmp app/index.html",
+    "docs": "rm -rf docs && parcel serve -d docs app/index.html --public-url=./ --no-hmr",
     "eslint": "eslint . -c .eslintrc.js --ext .tsx --ext .ts"
   }
 }
