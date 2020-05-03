@@ -2,6 +2,7 @@
   "name": "antd-easy-listview",
   "version": "0.1.0",
   "main": "dist/index.js",
+  "umd": "dist/umd/index.js",
   "repository": "git@github.com:wangdahoo/antd-easy-listview.git",
   "author": "wangdahoo <157195705@qq.com>",
   "license": "MIT",
@@ -48,6 +49,7 @@
   "scripts": {
     "start": "parcel serve -d .tmp app/index.html",
     "docs": "rm -rf docs && parcel serve -d docs app/index.html --public-url=./ --no-hmr",
-    "eslint": "eslint . -c .eslintrc.js --ext .tsx --ext .ts"
+    "eslint": "eslint . -c .eslintrc.js --ext .tsx --ext .ts",
+    "build": "rollup -c"
   }
 }

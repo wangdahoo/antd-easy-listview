@@ -1,0 +1,36 @@
+.elv-list-view > .ant-layout-content > .ant-card .ant-card-body > .ant-table-wrapper {
+  overflow-x: hidden;
+}
+.elv-list-view .table-items .ant-table-thead > tr > th,
+.elv-list-view .table-items .ant-table-tbody > tr > td,
+.elv-list-view .table-items .ant-table tfoot > tr > th,
+.elv-list-view .table-items .ant-table tfoot > tr > td {
+  padding: 8px;
+}
+.elv-list-view .table-items .operations .ant-btn:last-of-type {
+  margin-right: 0;
+}
+
+.ant-modal..elv-fullscreen-modal {
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  width: 100% !important;
+  min-height: 100vh !important;
+  overflow-x: hidden;
+}
+.ant-modal..elv-fullscreen-modal::-webkit-scrollbar {
+  display: none;
+}
+.ant-modal..elv-fullscreen-modal > .ant-modal-content {
+  border-radius: 0 !important;
+}
+.ant-modal..elv-fullscreen-modal > .ant-modal-content > .ant-modal-header,
+.ant-modal..elv-fullscreen-modal > .ant-modal-content > .ant-modal-footer {
+  border-radius: 0 !important;
+}
+.ant-modal..elv-fullscreen-modal > .ant-modal-content > .ant-modal-body {
+  background-color: #f0f2f5;
+  min-height: calc(35vh);
+}
