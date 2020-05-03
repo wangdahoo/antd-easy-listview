@@ -243,6 +243,10 @@ export function createListView<T>(options: ListViewOptions<T>) {
                         await onFetchItems(keyword, filters, pageNum, pageSize || pagination.pageSize)
                     },
                     onShowSizeChange: async (_, newPageSize: number) => {
+                        setPagination({
+                            ...pagination,
+                            pageSize: newPageSize
+                        })
                         await onFetchItems(keyword, filters, 1, newPageSize)
                     }
                 }}
