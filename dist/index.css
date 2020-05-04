@@ -11,7 +11,7 @@
   margin-right: 0;
 }
 
-.ant-modal..elv-fullscreen-modal {
+.ant-modal.elv-fullscreen-modal {
   top: 0;
   left: 0;
   margin: 0;
@@ -20,17 +20,17 @@
   min-height: 100vh !important;
   overflow-x: hidden;
 }
-.ant-modal..elv-fullscreen-modal::-webkit-scrollbar {
+.ant-modal.elv-fullscreen-modal::-webkit-scrollbar {
   display: none;
 }
-.ant-modal..elv-fullscreen-modal > .ant-modal-content {
+.ant-modal.elv-fullscreen-modal > .ant-modal-content {
   border-radius: 0 !important;
 }
-.ant-modal..elv-fullscreen-modal > .ant-modal-content > .ant-modal-header,
-.ant-modal..elv-fullscreen-modal > .ant-modal-content > .ant-modal-footer {
+.ant-modal.elv-fullscreen-modal > .ant-modal-content > .ant-modal-header,
+.ant-modal.elv-fullscreen-modal > .ant-modal-content > .ant-modal-footer {
   border-radius: 0 !important;
 }
-.ant-modal..elv-fullscreen-modal > .ant-modal-content > .ant-modal-body {
+.ant-modal.elv-fullscreen-modal > .ant-modal-content > .ant-modal-body {
   background-color: #f0f2f5;
   min-height: calc(35vh);
 }

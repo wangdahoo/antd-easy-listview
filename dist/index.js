@@ -1,6 +1,6 @@
 import React, { forwardRef, useState, useImperativeHandle, useRef, useEffect } from 'react';
 import { Modal, Button, Divider, Layout, Input, Table, Card, Drawer, message } from 'antd';
-import { EditOutlined, DeleteOutlined, SearchOutlined, ReloadOutlined, PlusOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined, DeleteOutlined, EditOutlined, SearchOutlined, ReloadOutlined, PlusOutlined } from '@ant-design/icons';
 import { Form } from '@wangdahoo/antd-easy-form';
 import classnames from 'classnames';
 
@@ -165,7 +165,7 @@ function FullscreenModal(props, ref) {
   var createTitle = function createTitle(title) {
     return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Button, {
       type: "link",
-      icon: "arrow-left",
+      icon: /*#__PURE__*/React.createElement(ArrowLeftOutlined, null),
       style: {
         paddingLeft: 0
       },
@@ -194,7 +194,7 @@ function FullscreenModal(props, ref) {
       }))
     }, backText || '返回'), props.onDelete ? /*#__PURE__*/React.createElement(Button, {
       type: "link",
-      icon: "delete",
+      icon: /*#__PURE__*/React.createElement(DeleteOutlined, null),
       style: {
         paddingLeft: 0
       },
@@ -248,7 +248,7 @@ function FullscreenModal(props, ref) {
   return /*#__PURE__*/React.createElement(Modal, {
     title: createTitle(title),
     visible: visible,
-    className: "fullscreen",
+    className: "elv-fullscreen-modal",
     footer: null,
     closable: false
   }, props.children);

@@ -1,6 +1,7 @@
 import './index.less'
 import React, { useState, useImperativeHandle, forwardRef, ReactChildren } from 'react'
 import { Modal, Button, Divider } from 'antd'
+import { ArrowLeftOutlined, DeleteOutlined } from '@ant-design/icons'
 
 export interface FullscreenModalProps {
     title: string | React.Component<{}, {}, any> | React.FC<{}> | undefined
@@ -23,7 +24,7 @@ export function FullscreenModal(props: FullscreenModalProps, ref: any) {
         <div>
             <Button
                 type="link"
-                icon="arrow-left"
+                icon={<ArrowLeftOutlined />}
                 style={{ paddingLeft: 0 }}
                 onClick={async () => {
                     if (props.onBack && typeof props.onBack === 'function') {
@@ -39,7 +40,7 @@ export function FullscreenModal(props: FullscreenModalProps, ref: any) {
             {props.onDelete ? (
                 <Button
                     type="link"
-                    icon="delete"
+                    icon={<DeleteOutlined />}
                     style={{ paddingLeft: 0 }}
                     onClick={() => {
                         Modal.confirm({
@@ -66,7 +67,7 @@ export function FullscreenModal(props: FullscreenModalProps, ref: any) {
     )
 
     return (
-        <Modal title={createTitle(title)} visible={visible} className="fullscreen" footer={null} closable={false}>
+        <Modal title={createTitle(title)} visible={visible} className="elv-fullscreen-modal" footer={null} closable={false}>
             {props.children}
         </Modal>
     )
