@@ -1,7 +1,7 @@
 import React, { forwardRef, useState, useImperativeHandle, useRef, useEffect } from 'react';
 import { Modal, Button, Divider, Layout, Input, Table, Card, Drawer, message } from 'antd';
 import { EditOutlined, DeleteOutlined, SearchOutlined, ReloadOutlined, PlusOutlined } from '@ant-design/icons';
-import { Form } from '@wangdahoo/antd-easy-form/src';
+import { Form } from '@wangdahoo/antd-easy-form';
 import classnames from 'classnames';
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
