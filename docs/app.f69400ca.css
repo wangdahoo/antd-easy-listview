@@ -27730,19 +27730,6 @@ div.ant-typography-edit-content.ant-typography-rtl {
 
 
 
-.elv-list-view > .ant-layout-content > .ant-card .ant-card-body > .ant-table-wrapper {
-  overflow-x: hidden;
-}
-.elv-list-view .table-items .ant-table-thead > tr > th,
-.elv-list-view .table-items .ant-table-tbody > tr > td,
-.elv-list-view .table-items .ant-table tfoot > tr > th,
-.elv-list-view .table-items .ant-table tfoot > tr > td {
-  padding: 8px;
-}
-.elv-list-view .table-items .operations .ant-btn:last-of-type {
-  margin-right: 0;
-}
-
 .ef-form {
   min-height: 100%;
   background-color: #fff;
@@ -27791,6 +27778,19 @@ div.ant-typography-edit-content.ant-typography-rtl {
 }
 .ef-form .ef-divider {
   margin: 0 0 18px 0;
+}
+
+.elv-list-view > .ant-layout-content > .ant-card .ant-card-body > .ant-table-wrapper {
+  overflow-x: hidden;
+}
+.elv-list-view .table-items .ant-table-thead > tr > th,
+.elv-list-view .table-items .ant-table-tbody > tr > td,
+.elv-list-view .table-items .ant-table tfoot > tr > th,
+.elv-list-view .table-items .ant-table tfoot > tr > td {
+  padding: 8px;
+}
+.elv-list-view .table-items .operations .ant-btn:last-of-type {
+  margin-right: 0;
 }
 
 .ef-form {

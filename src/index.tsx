@@ -1,5 +1,4 @@
 import './index.less'
-import '@wangdahoo/antd-easy-form/dist/index.css'
 
 import React, { useState, useRef, useEffect } from 'react'
 import { Layout, Card, Table, Button, Input, Drawer, Modal, message } from 'antd'

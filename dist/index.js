@@ -1,4 +1,3 @@
-import '@wangdahoo/antd-easy-form/dist/index.css';
 import React, { forwardRef, useState, useImperativeHandle, useRef, useEffect } from 'react';
 import { Modal, Button, Divider, Layout, Input, Table, Card, Drawer, message } from 'antd';
 import { EditOutlined, DeleteOutlined, SearchOutlined, ReloadOutlined, PlusOutlined } from '@ant-design/icons';

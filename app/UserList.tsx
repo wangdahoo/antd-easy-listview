@@ -1,3 +1,4 @@
+import '@wangdahoo/antd-easy-form/dist/index.css'
 import { FormItemType } from '@wangdahoo/antd-easy-form'
 // import '../dist/index.css'
 // import { createListViewOptions, createListView } from '../dist'
