@@ -1,13 +1,13 @@
 {
   "name": "@wangdahoo/antd-easy-listview",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "main": "dist/index.js",
   "umd": "dist/umd/index.js",
   "repository": "git@github.com:wangdahoo/antd-easy-listview.git",
   "author": "wangdahoo <157195705@qq.com>",
   "license": "MIT",
   "dependencies": {
-    "@wangdahoo/antd-easy-form": "^0.1.7",
+    "@wangdahoo/antd-easy-form": "^0.1.11",
     "antd": "^4.1.5",
     "classnames": "^2.2.6",
     "react": "^16.13.1",

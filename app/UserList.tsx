@@ -36,7 +36,8 @@ const createFormItems = (props: any) => [
         itemType: FormItemType.NUMBER,
         min: 1,
         max: 200,
-        step: 1,
+        step: 0.1,
+        unit: '岁',
         defaultValue: 18
     }
 ]

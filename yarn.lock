@@ -1154,10 +1154,10 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@wangdahoo/antd-easy-form@^0.1.7":
-  version "0.1.7"
-  resolved "https://registry.npmjs.org/@wangdahoo/antd-easy-form/-/antd-easy-form-0.1.7.tgz#37e47eec88a9bb8b319106b2c1b633f98b083acb"
-  integrity sha512-C9y1ME/ghSh6qVqSuraGq3KC7gXWjG5zf+sU/kBWGE1ULSiRwfh/9Gak5s/ew1FZ+/BDZ64UBtc9JKE5/AKlTA==
+"@wangdahoo/antd-easy-form@^0.1.11":
+  version "0.1.11"
+  resolved "https://registry.npmjs.org/@wangdahoo/antd-easy-form/-/antd-easy-form-0.1.11.tgz#cf3b9bf306755e61aa7553b1dfa2d98077daed87"
+  integrity sha512-mMOyxqIvtANHrISaFk8yAlUFEIEK3aldPrlwsogwrcw/1URa4eNesTQrzNy08yI7d8IMtRiOvTm7Xt+Azhj0Fw==
   dependencies:
     antd "^4.1.5"
     classnames "^2.2.6"
