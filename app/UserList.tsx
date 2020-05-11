@@ -2,7 +2,7 @@ import '@wangdahoo/antd-easy-form/dist/index.css'
 import { FormItemType } from '@wangdahoo/antd-easy-form'
 // import '../dist/index.css'
 // import { createListViewOptions, createListView } from '../dist'
-import { createListViewOptions, createListView } from '../src'
+import { createListViewOptions, createListView, SelectFilter } from '../src'
 import { getAllUsers, createUser, updateUser, deleteUsers, User } from './api'
 
 const createFormItems = (props: any) => [
@@ -105,7 +105,26 @@ const options = {
         ]
     },
     tableColumns,
-    filters: [ 'name' ],
+    filters: [
+        'name',
+        {
+            name: 'gender',
+            options: [
+                {
+                    value: 1,
+                    text: '男'
+                },
+                {
+                    value: 0,
+                    text: '女'
+                }
+            ],
+            labelText: '性别：',
+            selectStyle: {
+                width: 60
+            }
+        }
+    ] as (string | SelectFilter)[],
     fetchItems: getAllUsers,
     createItem: createUser,
     updateItem: updateUser,

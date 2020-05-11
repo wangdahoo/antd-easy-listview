@@ -34,6 +34,11 @@ export const getAllUsers: SearchApi<User> = (props: any) => {
             if (keyword === '') return true
 
             const result =  filters.reduce((result: boolean, filter: string) => {
+                if (filter.indexOf('=') > -1) {
+                    const [ name, value ] = filter.split('=')
+                    result || u[name] === value
+                }
+
                 return result || u[filter].indexOf(keyword) > -1
             }, false)
 

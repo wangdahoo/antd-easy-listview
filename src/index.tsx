@@ -1,13 +1,14 @@
 import './index.less'
 
 import React, { useState, useRef, useEffect } from 'react'
-import { Layout, Card, Table, Button, Input, Drawer, Modal, message } from 'antd'
+import { Layout, Card, Table, Button, Input, Drawer, Modal, Select, message } from 'antd'
 import { ReloadOutlined, PlusOutlined, EditOutlined, DeleteOutlined, SearchOutlined } from '@ant-design/icons'
 import { Form } from '@wangdahoo/antd-easy-form'
 import classnames from 'classnames'
 import FullscreenModal from './FullscreenModal'
 import { defaultOptions } from './defaultOptions'
-import { ListViewOptions } from './types'
+import { ListViewOptions, SelectFilter } from './types'
+export { SelectFilter } from './types'
 
 const Content = Layout.Content
 const Search = Input.Search
@@ -60,12 +61,39 @@ export function createListView<T>(options: ListViewOptions<T>) {
         const [formType, setFormType] = useState(0)
         const [innerTableColumns, setInnerTableColumns] = useState([] as any[])
         const [record, setRecord] = useState(null as T | null)
+        const [selectFilters, setSelectFilters] = useState(
+            (filters
+                .filter(filter => typeof filter !== 'string') as SelectFilter[])
+                .reduce((selectors, filter: SelectFilter) => {
+                    return {
+                        ...selectors,
+                        [filter.name]: {
+                            ...filter,
+                            value: filter.options[0].value,
+                        }
+                    }
+                }, {}) as { [key: string]: any }
+        )
+
+        // console.log(selectFilters)
+
         const detailRef = useRef(null)
         const creationRef = useRef(null)
 
+        function formatFilters (filters: (string | SelectFilter)[]): string[] {
+            return filters.map(filter => {
+                if (typeof filter === 'string') {
+                    return filter
+                } else {
+                    const value = ((selectFilters as any)[filter.name]).name
+                    return `${filter.name}=${value || ''}`
+                }
+            })
+        }
+
         useEffect(() => {
             if (props.created) props.created()
-            onFetchItems(keyword, filters, pagination.pageNum, pagination.pageSize)
+            onFetchItems(keyword, formatFilters(filters), pagination.pageNum, pagination.pageSize)
             setInnerTableColumns(createTableColumns(tableColumns, renderOperations))
         }, [props])
 
@@ -89,7 +117,7 @@ export function createListView<T>(options: ListViewOptions<T>) {
         }
 
         async function onRefresh() {
-            await onFetchItems(keyword, filters, pagination.pageNum, pagination.pageSize)
+            await onFetchItems(keyword, formatFilters(filters), pagination.pageNum, pagination.pageSize)
         }
 
         function onCreate() {
@@ -136,7 +164,7 @@ export function createListView<T>(options: ListViewOptions<T>) {
                 onOk: async function () {
                     await deleteItem(record, props)
                     message.success(`删除${itemName}成功`)
-                    await onFetchItems(keyword, filters, 1, pagination.pageSize)
+                    await onFetchItems(keyword, formatFilters(filters), 1, pagination.pageSize)
                 }
             })
         }
@@ -153,7 +181,7 @@ export function createListView<T>(options: ListViewOptions<T>) {
             }
 
             setDrawerVisible(false)
-            await onFetchItems(keyword, filters, 1, pagination.pageSize)
+            await onFetchItems(keyword, formatFilters(filters), 1, pagination.pageSize)
         }
 
         const renderOperations = (_: any, record: T) => {
@@ -212,13 +240,37 @@ export function createListView<T>(options: ListViewOptions<T>) {
 
         const listExtra = (
             <div style={{ display: 'flex', width: extraWidth }}>
+                {Object.keys(selectFilters).map((name, index) => {
+                    return (
+                        <div key={index}>
+                            <span>{selectFilters[name].labelText}</span>
+                            <Select
+                                style={{ ...(selectFilters[name].selectStyle || {}), margin: '0 15px 0 5px' }}
+                                value={selectFilters[name].value}
+                                onChange={value => setSelectFilters({
+                                    ...selectFilters,
+                                    [name]: {
+                                        ...selectFilters[name],
+                                        value
+                                    }
+                                })}
+                            >
+                                {selectFilters[name].options.map((option: { value: string, text: string }, optionIndex: number) => {
+                                    return (
+                                        <Select.Option key={optionIndex} value={option.value}>{option.text}</Select.Option>
+                                    )
+                                })}
+                            </Select>
+                        </div>
+                    )
+                })}
                 <Search
                     placeholder={extraSearchPlaceholder}
                     style={{ flex: 1 }}
                     value={keyword}
                     onChange={e => setKeyword(e.target.value)}
                     onSearch={async () => {
-                        await onFetchItems(keyword, filters, 1, pagination.pageSize)
+                        await onFetchItems(keyword, formatFilters(filters), 1, pagination.pageSize)
                     }}
                     enterButton={<Button type="primary" icon={<SearchOutlined />}>搜索</Button>}
                 />
@@ -243,14 +295,14 @@ export function createListView<T>(options: ListViewOptions<T>) {
                     showTotal: (total, [start, end]) => `共 ${total} 条记录，当前 ${start} ~ ${end}`,
                     showSizeChanger: true,
                     onChange: async (pageNum, pageSize) => {
-                        await onFetchItems(keyword, filters, pageNum, pageSize || pagination.pageSize)
+                        await onFetchItems(keyword, formatFilters(filters), pageNum, pageSize || pagination.pageSize)
                     },
                     onShowSizeChange: async (_, newPageSize: number) => {
                         setPagination({
                             ...pagination,
                             pageSize: newPageSize
                         })
-                        await onFetchItems(keyword, filters, 1, newPageSize)
+                        await onFetchItems(keyword, formatFilters(filters), 1, newPageSize)
                     }
                 }}
             />
@@ -297,12 +349,12 @@ export function createListView<T>(options: ListViewOptions<T>) {
                         <FullscreenModal
                             title={detailTitle}
                             ref={detailRef}
-                            onBack={() => onFetchItems(keyword, filters, 1, pagination.pageSize)}
+                            onBack={() => onFetchItems(keyword, formatFilters(filters), 1, pagination.pageSize)}
                             itemName={itemName}
                             onDelete={async () => {
                                 await deleteItem(record, props)
                                 message.success(`删除${itemName}成功`)
-                                await onFetchItems(keyword, filters, 1, pagination.pageSize)
+                                await onFetchItems(keyword, formatFilters(filters), 1, pagination.pageSize)
                             }}
                         >
                             {createDetailComponent ? createDetailComponent(record, props) : null}
@@ -314,7 +366,7 @@ export function createListView<T>(options: ListViewOptions<T>) {
                         <FullscreenModal
                             title={creationTitle}
                             ref={creationRef}
-                            onBack={() => onFetchItems(keyword, filters, 1, pagination.pageSize)}
+                            onBack={() => onFetchItems(keyword, formatFilters(filters), 1, pagination.pageSize)}
                             itemName={itemName}
                         >
                             {createCreationComponent ? createCreationComponent(props) : null}

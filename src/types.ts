@@ -1,8 +1,17 @@
+import { CSSProperties } from 'react'
+
 export type CreateApi<T> = (record: Partial<T>, props: any) => Promise<void>
 
 export type UpdateApi<T> = (record: Partial<T>, props: any) => Promise<void>
 
 export type DeleteAPi<T> = (record: Partial<T>, props: any) => Promise<void>
+
+export interface SelectFilter {
+    name: string,
+    options: { value: any, text: string }[]
+    labelText?: string,
+    selectStyle?: CSSProperties
+}
 
 export interface SearchProps {
     keyword: string
@@ -27,7 +36,7 @@ export interface ListViewOptions<T> {
     tableColumns: any[]
     tableOperations: ('update'|'delete')[]
     tableWrapper: 'card'|'none'
-    filters: string[]
+    filters: (string | SelectFilter)[]
     createItem: CreateApi<T>,
     updateItem: UpdateApi<T>,
     deleteItem: DeleteAPi<T>,
