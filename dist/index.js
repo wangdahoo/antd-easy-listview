@@ -1,6 +1,6 @@
 import React, { forwardRef, useState, useImperativeHandle, useRef, useEffect } from 'react';
-import { Modal, Button, Divider, Layout, Input, Table, Card, Drawer, message } from 'antd';
-import { ArrowLeftOutlined, DeleteOutlined, EditOutlined, SearchOutlined, ReloadOutlined, PlusOutlined } from '@ant-design/icons';
+import { Modal, Button, Divider, Layout, Input, Select, Table, Card, Drawer, message } from 'antd';
+import { ArrowLeftOutlined, DeleteOutlined, SearchOutlined, ReloadOutlined, PlusOutlined, EditOutlined } from '@ant-design/icons';
 import { Form } from '@wangdahoo/antd-easy-form';
 import classnames from 'classnames';
 
@@ -379,11 +379,35 @@ function createListView(options) {
         record = _useState16[0],
         setRecord = _useState16[1];
 
+    var _useState17 = useState(filters.filter(function (filter) {
+      return typeof filter !== 'string';
+    }).reduce(function (selectors, filter) {
+      return _objectSpread2(_objectSpread2({}, selectors), {}, _defineProperty({}, filter.name, _objectSpread2(_objectSpread2({}, filter), {}, {
+        value: filter.options[0].value
+      })));
+    }, {})),
+        _useState18 = _slicedToArray(_useState17, 2),
+        selectFilters = _useState18[0],
+        setSelectFilters = _useState18[1]; // console.log(selectFilters)
+
+
     var detailRef = useRef(null);
     var creationRef = useRef(null);
+
+    function formatFilters(filters, newSelectFilters) {
+      return filters.map(function (filter) {
+        if (typeof filter === 'string') {
+          return filter;
+        } else {
+          var value = (newSelectFilters || selectFilters)[filter.name].value;
+          return "".concat(filter.name, "=").concat(value === null || value === undefined ? '' : value);
+        }
+      });
+    }
+
     useEffect(function () {
       if (props.created) props.created();
-      onFetchItems(keyword, filters, pagination.pageNum, pagination.pageSize);
+      onFetchItems(keyword, formatFilters(filters), pagination.pageNum, pagination.pageSize);
       setInnerTableColumns(createTableColumns(tableColumns, renderOperations));
     }, [props]);
 
@@ -441,7 +465,7 @@ function createListView(options) {
             switch (_context7.prev = _context7.next) {
               case 0:
                 _context7.next = 2;
-                return onFetchItems(keyword, filters, pagination.pageNum, pagination.pageSize);
+                return onFetchItems(keyword, formatFilters(filters), pagination.pageNum, pagination.pageSize);
 
               case 2:
               case "end":
@@ -451,6 +475,36 @@ function createListView(options) {
         }, _callee7);
       }));
       return _onRefresh.apply(this, arguments);
+    }
+
+    function onChangeSelect(_x5, _x6) {
+      return _onChangeSelect.apply(this, arguments);
+    }
+
+    function _onChangeSelect() {
+      _onChangeSelect = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(name, value) {
+        var newSelectFilters;
+        return regeneratorRuntime.wrap(function _callee8$(_context8) {
+          while (1) {
+            switch (_context8.prev = _context8.next) {
+              case 0:
+                newSelectFilters = _objectSpread2(_objectSpread2({}, selectFilters), {}, _defineProperty({}, name, _objectSpread2(_objectSpread2({}, selectFilters[name]), {}, {
+                  value: value
+                })));
+                _context8.next = 3;
+                return onFetchItems(keyword, formatFilters(filters, newSelectFilters), 1, pagination.pageSize);
+
+              case 3:
+                setSelectFilters(newSelectFilters);
+
+              case 4:
+              case "end":
+                return _context8.stop();
+            }
+          }
+        }, _callee8);
+      }));
+      return _onChangeSelect.apply(this, arguments);
     }
 
     function onCreate() {
@@ -505,7 +559,7 @@ function createListView(options) {
                   case 2:
                     message.success("\u5220\u9664".concat(itemName, "\u6210\u529F"));
                     _context.next = 5;
-                    return onFetchItems(keyword, filters, 1, pagination.pageSize);
+                    return onFetchItems(keyword, formatFilters(filters), 1, pagination.pageSize);
 
                   case 5:
                   case "end":
@@ -524,22 +578,22 @@ function createListView(options) {
       });
     }
 
-    function onSubmit(_x5) {
+    function onSubmit(_x7) {
       return _onSubmit.apply(this, arguments);
     }
 
     function _onSubmit() {
-      _onSubmit = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(form) {
-        return regeneratorRuntime.wrap(function _callee8$(_context8) {
+      _onSubmit = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(form) {
+        return regeneratorRuntime.wrap(function _callee9$(_context9) {
           while (1) {
-            switch (_context8.prev = _context8.next) {
+            switch (_context9.prev = _context9.next) {
               case 0:
                 if (!(formType === FORM_TYPE_CREATE)) {
-                  _context8.next = 4;
+                  _context9.next = 4;
                   break;
                 }
 
-                _context8.next = 3;
+                _context9.next = 3;
                 return createItem(form, props);
 
               case 3:
@@ -547,11 +601,11 @@ function createListView(options) {
 
               case 4:
                 if (!(formType === FORM_TYPE_UPDATE)) {
-                  _context8.next = 8;
+                  _context9.next = 8;
                   break;
                 }
 
-                _context8.next = 7;
+                _context9.next = 7;
                 return updateItem(form, props);
 
               case 7:
@@ -559,15 +613,15 @@ function createListView(options) {
 
               case 8:
                 setDrawerVisible(false);
-                _context8.next = 11;
-                return onFetchItems(keyword, filters, 1, pagination.pageSize);
+                _context9.next = 11;
+                return onFetchItems(keyword, formatFilters(filters), 1, pagination.pageSize);
 
               case 11:
               case "end":
-                return _context8.stop();
+                return _context9.stop();
             }
           }
-        }, _callee8);
+        }, _callee9);
       }));
       return _onSubmit.apply(this, arguments);
     }
@@ -626,7 +680,24 @@ function createListView(options) {
         display: 'flex',
         width: extraWidth
       }
-    }, /*#__PURE__*/React.createElement(Search, {
+    }, Object.keys(selectFilters).map(function (name, index) {
+      return /*#__PURE__*/React.createElement("div", {
+        key: index
+      }, /*#__PURE__*/React.createElement("span", null, selectFilters[name].labelText), /*#__PURE__*/React.createElement(Select, {
+        style: _objectSpread2(_objectSpread2({}, selectFilters[name].selectStyle || {}), {}, {
+          margin: '0 15px 0 5px'
+        }),
+        value: selectFilters[name].value,
+        onChange: function onChange(value) {
+          return onChangeSelect(name, value);
+        }
+      }, selectFilters[name].options.map(function (option, optionIndex) {
+        return /*#__PURE__*/React.createElement(Select.Option, {
+          key: optionIndex,
+          value: option.value
+        }, option.text);
+      })));
+    }), /*#__PURE__*/React.createElement(Search, {
       placeholder: extraSearchPlaceholder,
       style: {
         flex: 1
@@ -641,7 +712,7 @@ function createListView(options) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return onFetchItems(keyword, filters, 1, pagination.pageSize);
+                return onFetchItems(keyword, formatFilters(filters), 1, pagination.pageSize);
 
               case 2:
               case "end":
@@ -692,7 +763,7 @@ function createListView(options) {
                 switch (_context3.prev = _context3.next) {
                   case 0:
                     _context3.next = 2;
-                    return onFetchItems(keyword, filters, pageNum, pageSize || pagination.pageSize);
+                    return onFetchItems(keyword, formatFilters(filters), pageNum, pageSize || pagination.pageSize);
 
                   case 2:
                   case "end":
@@ -702,7 +773,7 @@ function createListView(options) {
             }, _callee3);
           }));
 
-          function onChange(_x6, _x7) {
+          function onChange(_x8, _x9) {
             return _onChange.apply(this, arguments);
           }
 
@@ -718,7 +789,7 @@ function createListView(options) {
                       pageSize: newPageSize
                     }));
                     _context4.next = 3;
-                    return onFetchItems(keyword, filters, 1, newPageSize);
+                    return onFetchItems(keyword, formatFilters(filters), 1, newPageSize);
 
                   case 3:
                   case "end":
@@ -728,7 +799,7 @@ function createListView(options) {
             }, _callee4);
           }));
 
-          function onShowSizeChange(_x8, _x9) {
+          function onShowSizeChange(_x10, _x11) {
             return _onShowSizeChange.apply(this, arguments);
           }
 
@@ -769,7 +840,7 @@ function createListView(options) {
       title: detailTitle,
       ref: detailRef,
       onBack: function onBack() {
-        return onFetchItems(keyword, filters, 1, pagination.pageSize);
+        return onFetchItems(keyword, formatFilters(filters), 1, pagination.pageSize);
       },
       itemName: itemName,
       onDelete: /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
@@ -783,7 +854,7 @@ function createListView(options) {
               case 2:
                 message.success("\u5220\u9664".concat(itemName, "\u6210\u529F"));
                 _context5.next = 5;
-                return onFetchItems(keyword, filters, 1, pagination.pageSize);
+                return onFetchItems(keyword, formatFilters(filters), 1, pagination.pageSize);
 
               case 5:
               case "end":
@@ -796,7 +867,7 @@ function createListView(options) {
       title: creationTitle,
       ref: creationRef,
       onBack: function onBack() {
-        return onFetchItems(keyword, filters, 1, pagination.pageSize);
+        return onFetchItems(keyword, formatFilters(filters), 1, pagination.pageSize);
       },
       itemName: itemName
     }, createCreationComponent ? createCreationComponent(props) : null) : null));

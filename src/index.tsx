@@ -7,8 +7,7 @@ import { Form } from '@wangdahoo/antd-easy-form'
 import classnames from 'classnames'
 import FullscreenModal from './FullscreenModal'
 import { defaultOptions } from './defaultOptions'
-import { ListViewOptions, SelectFilter } from './types'
-export { SelectFilter } from './types'
+import { ListViewOptions, SelectFilter as _SelectFilter } from './types'
 
 const Content = Layout.Content
 const Search = Input.Search
@@ -63,8 +62,8 @@ export function createListView<T>(options: ListViewOptions<T>) {
         const [record, setRecord] = useState(null as T | null)
         const [selectFilters, setSelectFilters] = useState(
             (filters
-                .filter(filter => typeof filter !== 'string') as SelectFilter[])
-                .reduce((selectors, filter: SelectFilter) => {
+                .filter(filter => typeof filter !== 'string') as _SelectFilter[])
+                .reduce((selectors, filter: _SelectFilter) => {
                     return {
                         ...selectors,
                         [filter.name]: {
@@ -80,12 +79,12 @@ export function createListView<T>(options: ListViewOptions<T>) {
         const detailRef = useRef(null)
         const creationRef = useRef(null)
 
-        function formatFilters (filters: (string | SelectFilter)[]): string[] {
+        function formatFilters (filters: (string | _SelectFilter)[], newSelectFilters?: any): string[] {
             return filters.map(filter => {
                 if (typeof filter === 'string') {
                     return filter
                 } else {
-                    const value = ((selectFilters as any)[filter.name]).value
+                    const value = (((newSelectFilters || selectFilters) as any)[filter.name]).value
                     return `${filter.name}=${(value === null || value === undefined) ? '' : value}`
                 }
             })
@@ -118,6 +117,18 @@ export function createListView<T>(options: ListViewOptions<T>) {
 
         async function onRefresh() {
             await onFetchItems(keyword, formatFilters(filters), pagination.pageNum, pagination.pageSize)
+        }
+
+        async function onChangeSelect (name: string, value: any) {
+            const newSelectFilters = {
+                ...selectFilters,
+                [name]: {
+                    ...selectFilters[name],
+                    value
+                }
+            }
+            await onFetchItems(keyword, formatFilters(filters, newSelectFilters), 1, pagination.pageSize)
+            setSelectFilters(newSelectFilters)
         }
 
         function onCreate() {
@@ -247,13 +258,7 @@ export function createListView<T>(options: ListViewOptions<T>) {
                             <Select
                                 style={{ ...(selectFilters[name].selectStyle || {}), margin: '0 15px 0 5px' }}
                                 value={selectFilters[name].value}
-                                onChange={value => setSelectFilters({
-                                    ...selectFilters,
-                                    [name]: {
-                                        ...selectFilters[name],
-                                        value
-                                    }
-                                })}
+                                onChange={value => onChangeSelect(name, value)}
                             >
                                 {selectFilters[name].options.map((option: { value: string, text: string }, optionIndex: number) => {
                                     return (
@@ -379,3 +384,5 @@ export function createListView<T>(options: ListViewOptions<T>) {
 }
 
 export const createListViewOptions = defaultOptions
+
+export type SelectFilter = _SelectFilter
