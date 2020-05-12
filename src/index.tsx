@@ -85,8 +85,8 @@ export function createListView<T>(options: ListViewOptions<T>) {
                 if (typeof filter === 'string') {
                     return filter
                 } else {
-                    const value = ((selectFilters as any)[filter.name]).name
-                    return `${filter.name}=${value || ''}`
+                    const value = ((selectFilters as any)[filter.name]).value
+                    return `${filter.name}=${(value === null || value === undefined) ? '' : value}`
                 }
             })
         }
