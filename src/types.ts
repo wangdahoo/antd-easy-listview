@@ -38,6 +38,12 @@ export interface ListViewOptions<T> {
     tableColumns: any[]
     tableOperations: ('update'|'delete')[]
     tableWrapper: 'card'|'none'
+    tableScroll: ({
+        x?: string | number | true | undefined
+        y?: string | number | undefined
+    } & {
+        scrollToFirstRowOnChange?: boolean | undefined
+    }) | undefined
     filters: (string | SelectFilter)[]
     batchDeleteEnabled: boolean
     createItem: CreateApi<T>

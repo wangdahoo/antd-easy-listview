@@ -26,6 +26,7 @@ export function createListView<T>(options: ListViewOptions<T>) {
         tableColumns,
         tableOperations,
         tableWrapper,
+        tableScroll,
         filters,
         batchDeleteEnabled,
         createItem,
@@ -341,6 +342,7 @@ export function createListView<T>(options: ListViewOptions<T>) {
                     }
                 }}
                 rowSelection={batchDeleteEnabled ? rowSelection : undefined}
+                scroll={tableScroll}
             />
         )
 

@@ -14,6 +14,7 @@ export const defaultOptions = <T>(): ListViewOptions<T> => ({
     tableColumns: [],
     tableOperations: ['update', 'delete'],
     tableWrapper: 'card',
+    tableScroll: undefined,
     filters: [],
     batchDeleteEnabled: false,
 
