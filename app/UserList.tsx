@@ -3,7 +3,7 @@ import { FormItemType } from '@wangdahoo/antd-easy-form'
 // import '../dist/index.css'
 // import { createListViewOptions, createListView } from '../dist'
 import { createListViewOptions, createListView, SelectFilter } from '../src'
-import { getAllUsers, createUser, updateUser, deleteUsers, User } from './api'
+import { getAllUsers, createUser, updateUser, deleteUsers, batchDeleteUsers, User } from './api'
 
 const createFormItems = (props: any) => [
     {
@@ -128,7 +128,9 @@ const options = {
     fetchItems: getAllUsers,
     createItem: createUser,
     updateItem: updateUser,
-    deleteItem: deleteUsers
+    deleteItem: deleteUsers,
+    batchDeleteEnabled: true,
+    batchDeleteItems: batchDeleteUsers
 }
 
 export default createListView(options)

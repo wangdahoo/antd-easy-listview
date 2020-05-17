@@ -27,10 +27,12 @@ export function createListView<T>(options: ListViewOptions<T>) {
         tableOperations,
         tableWrapper,
         filters,
+        batchDeleteEnabled,
         createItem,
         deleteItem,
         updateItem,
         fetchItems,
+        batchDeleteItems,
         createFormItems,
         updateFormItems,
         formLabelWidth,
@@ -73,6 +75,7 @@ export function createListView<T>(options: ListViewOptions<T>) {
                     }
                 }, {}) as { [key: string]: any }
         )
+        const [selectedRecords, setSelectedRecords] = useState([] as T[])
 
         // console.log(selectFilters)
 
@@ -88,6 +91,15 @@ export function createListView<T>(options: ListViewOptions<T>) {
                     return `${filter.name}=${(value === null || value === undefined) ? '' : value}`
                 }
             })
+        }
+
+        const rowSelection = {
+            fixed: true,
+            columnWidth: 40,
+            onChange: (selectedRowKeys: any, newSelectedRecords: any) => {
+                // console.log('newSelectedRecords: ', newSelectedRecords)
+                setSelectedRecords(newSelectedRecords.filter((r: any) => r !== undefined) as T[])
+            }
         }
 
         useEffect(() => {
@@ -175,6 +187,19 @@ export function createListView<T>(options: ListViewOptions<T>) {
                 onOk: async function () {
                     await deleteItem(record, props)
                     message.success(`删除${itemName}成功`)
+                    await onFetchItems(keyword, formatFilters(filters), 1, pagination.pageSize)
+                }
+            })
+        }
+
+        function onBatchDelete() {
+            Modal.confirm({
+                centered: true,
+                title: '提示',
+                content: `确定删除选中的${itemName}？`,
+                onOk: async function () {
+                    await batchDeleteItems(selectedRecords, props)
+                    message.success(`批量删除${itemName}成功`)
                     await onFetchItems(keyword, formatFilters(filters), 1, pagination.pageSize)
                 }
             })
@@ -285,6 +310,11 @@ export function createListView<T>(options: ListViewOptions<T>) {
                 <Button type="primary" icon={<PlusOutlined />} style={{ marginLeft: 10 }} onClick={onCreate}>
                     添加
                 </Button>
+                {batchDeleteEnabled ? (
+                    <Button type="primary" danger disabled={selectedRecords.length === 0} icon={<DeleteOutlined />} style={{ marginLeft: 10 }} onClick={onBatchDelete}>
+                        删除
+                    </Button>
+                ) : null}
             </div>
         )
 
@@ -310,6 +340,7 @@ export function createListView<T>(options: ListViewOptions<T>) {
                         await onFetchItems(keyword, formatFilters(filters), 1, newPageSize)
                     }
                 }}
+                rowSelection={batchDeleteEnabled ? rowSelection : undefined}
             />
         )
 

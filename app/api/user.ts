@@ -1,4 +1,4 @@
-import { SearchApi, CreateApi, UpdateApi, SelectFilter } from '../../src/types'
+import { SearchApi, CreateApi, UpdateApi, BatchDeleteApi } from '../../src/types'
 
 let id: number = 0
 
@@ -100,6 +100,15 @@ export const deleteUsers: UpdateApi<User> = (record: User) => {
     users = users.filter(u => record.id !== u.id)
 
     log('delete')
+
+    return Promise.resolve()
+}
+
+export const batchDeleteUsers: BatchDeleteApi<User> = (records: User[]) => {
+    const deletedIds = records.map(i => i.id)
+    users = users.filter(u => deletedIds.indexOf(u.id) === -1)
+
+    log('batch delete')
 
     return Promise.resolve()
 }

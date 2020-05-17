@@ -6,7 +6,7 @@ export const defaultOptions = <T>(): ListViewOptions<T> => ({
     // listview 自定义 class
     className: '',
     // 外层 card 的 extra 宽度
-    extraWidth: 600,
+    extraWidth: 'auto',
     // 外层 card 的 extra 中的搜索框占位符
     extraSearchPlaceholder: '请输入关键字',
     // table options
@@ -15,6 +15,7 @@ export const defaultOptions = <T>(): ListViewOptions<T> => ({
     tableOperations: ['update', 'delete'],
     tableWrapper: 'card',
     filters: [],
+    batchDeleteEnabled: false,
 
     // apis
     createItem: () => Promise.resolve(),
@@ -26,6 +27,7 @@ export const defaultOptions = <T>(): ListViewOptions<T> => ({
         pageNum: 1,
         pageSize: 10
     }),
+    batchDeleteItems: () => Promise.resolve(),
 
     // form
     createFormItems: () => [],

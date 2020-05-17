@@ -27,23 +27,27 @@ export type SearchApi<T> = (searchProps: SearchProps, props: any) => Promise<{
     pageSize: number
 }>
 
+export type BatchDeleteApi<T> = (selectdRecords: Partial<T>[], props: any) => Promise<void>
+
 export interface ListViewOptions<T> {
     itemName: string
     className: string
-    extraWidth: number
+    extraWidth: number|'auto'
     extraSearchPlaceholder: string
     tableClassName: string
     tableColumns: any[]
     tableOperations: ('update'|'delete')[]
     tableWrapper: 'card'|'none'
     filters: (string | SelectFilter)[]
-    createItem: CreateApi<T>,
-    updateItem: UpdateApi<T>,
-    deleteItem: DeleteAPi<T>,
-    fetchItems: SearchApi<T>,
+    batchDeleteEnabled: boolean
+    createItem: CreateApi<T>
+    updateItem: UpdateApi<T>
+    deleteItem: DeleteAPi<T>
+    fetchItems: SearchApi<T>
+    batchDeleteItems: BatchDeleteApi<T>
 
-    createFormItems?: (props: any) => any[],
-    updateFormItems?: (record: T, props: any) => any[],
+    createFormItems?: (props: any) => any[]
+    updateFormItems?: (record: T, props: any) => any[]
     formLabelWidth?: number
 
     detailTitle?: string | React.Component<{}, {}, any> | React.FC<{}> | undefined
