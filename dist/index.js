@@ -724,8 +724,7 @@ function createListView(options) {
                 return onEdit(record);
               },
               style: {
-                paddingLeft: 0,
-                paddingRight: 0,
+                padding: 0,
                 height: 20
               }
             }, val);
@@ -936,6 +935,7 @@ function createListView(options) {
     }, createDetailComponent ? createDetailComponent(record, props, function () {
       if (detailRef.current) {
         detailRef.current.setVisible(false);
+        onRefresh();
       }
     }) : null) : null, createCreationComponent ? /*#__PURE__*/React.createElement(FullscreenModal$1, {
       title: creationTitle,
@@ -947,6 +947,7 @@ function createListView(options) {
     }, createCreationComponent ? createCreationComponent(props, function () {
       if (detailRef.current) {
         detailRef.current.setVisible(false);
+        onRefresh();
       }
     }) : null) : null));
   };

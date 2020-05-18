@@ -264,7 +264,7 @@ export function createListView<T>(options: ListViewOptions<T>) {
                                     <Button
                                         type="link"
                                         onClick={() => onEdit(record)}
-                                        style={{ paddingLeft: 0, paddingRight: 0, height: 20 }}
+                                        style={{ padding: 0, height: 20 }}
                                     >
                                         {val}
                                     </Button>
@@ -398,6 +398,7 @@ export function createListView<T>(options: ListViewOptions<T>) {
                             {createDetailComponent ? createDetailComponent(record, props, () => {
                                 if (detailRef.current) {
                                     (detailRef.current as any).setVisible(false)
+                                    onRefresh()
                                 }
                             }) : null}
                         </FullscreenModal>
@@ -414,6 +415,7 @@ export function createListView<T>(options: ListViewOptions<T>) {
                             {createCreationComponent ? createCreationComponent(props, () => {
                                 if (detailRef.current) {
                                     (detailRef.current as any).setVisible(false)
+                                    onRefresh()
                                 }
                             }) : null}
                         </FullscreenModal>
