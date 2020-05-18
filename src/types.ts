@@ -57,8 +57,8 @@ export interface ListViewOptions<T> {
     formLabelWidth?: number
 
     detailTitle?: string | React.Component<{}, {}, any> | React.FC<{}> | undefined
-    createDetailComponent?: (record: T, props: any) => React.ReactChildren
+    createDetailComponent?: (record: T, props: any, quit?: () => void) => React.ReactChildren
 
     creationTitle?: string | React.Component | React.FC,
-    createCreationComponent?: (props: any) => React.ReactChildren
+    createCreationComponent?: (props: any, quit?: () => void) => React.ReactChildren
 }

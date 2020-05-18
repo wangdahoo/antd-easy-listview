@@ -389,13 +389,17 @@ export function createListView<T>(options: ListViewOptions<T>) {
                             ref={detailRef}
                             onBack={() => onFetchItems(keyword, formatFilters(filters), 1, pagination.pageSize)}
                             itemName={itemName}
-                            onDelete={async () => {
+                            onDelete={deleteItem ? async () => {
                                 await deleteItem(record, props)
                                 message.success(`删除${itemName}成功`)
                                 await onFetchItems(keyword, formatFilters(filters), 1, pagination.pageSize)
-                            }}
+                            } : undefined}
                         >
-                            {createDetailComponent ? createDetailComponent(record, props) : null}
+                            {createDetailComponent ? createDetailComponent(record, props, () => {
+                                if (detailRef.current) {
+                                    (detailRef.current as any).setVisible(false)
+                                }
+                            }) : null}
                         </FullscreenModal>
                     ) : null}
 
@@ -407,7 +411,11 @@ export function createListView<T>(options: ListViewOptions<T>) {
                             onBack={() => onFetchItems(keyword, formatFilters(filters), 1, pagination.pageSize)}
                             itemName={itemName}
                         >
-                            {createCreationComponent ? createCreationComponent(props) : null}
+                            {createCreationComponent ? createCreationComponent(props, () => {
+                                if (detailRef.current) {
+                                    (detailRef.current as any).setVisible(false)
+                                }
+                            }) : null}
                         </FullscreenModal>
                     ) : null}
                 </Content>

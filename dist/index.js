@@ -913,7 +913,7 @@ function createListView(options) {
         return onFetchItems(keyword, formatFilters(filters), 1, pagination.pageSize);
       },
       itemName: itemName,
-      onDelete: /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+      onDelete: deleteItem ? /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
         return regeneratorRuntime.wrap(function _callee6$(_context6) {
           while (1) {
             switch (_context6.prev = _context6.next) {
@@ -932,15 +932,23 @@ function createListView(options) {
             }
           }
         }, _callee6);
-      }))
-    }, createDetailComponent ? createDetailComponent(record, props) : null) : null, createCreationComponent ? /*#__PURE__*/React.createElement(FullscreenModal$1, {
+      })) : undefined
+    }, createDetailComponent ? createDetailComponent(record, props, function () {
+      if (detailRef.current) {
+        detailRef.current.setVisible(false);
+      }
+    }) : null) : null, createCreationComponent ? /*#__PURE__*/React.createElement(FullscreenModal$1, {
       title: creationTitle,
       ref: creationRef,
       onBack: function onBack() {
         return onFetchItems(keyword, formatFilters(filters), 1, pagination.pageSize);
       },
       itemName: itemName
-    }, createCreationComponent ? createCreationComponent(props) : null) : null));
+    }, createCreationComponent ? createCreationComponent(props, function () {
+      if (detailRef.current) {
+        detailRef.current.setVisible(false);
+      }
+    }) : null) : null));
   };
 }
 var createListViewOptions = defaultOptions;
