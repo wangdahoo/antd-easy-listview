@@ -84,7 +84,7 @@ const options = {
     itemName: '人员',
     createFormItems,
     updateFormItems: (record: User, props: any) => {
-        console.log(record)
+        // console.log(record)
 
         return [
             {
@@ -123,7 +123,38 @@ const options = {
             selectStyle: {
                 width: 60
             }
-        }
+        },
+        {
+            name: 'city',
+            options: [
+                {
+                    value: '',
+                    text: '请选择'
+                },
+            ],
+            getOptions: function () {
+                return new Promise((resolve, reject) => {
+                    setTimeout(() => resolve([
+                        {
+                            value: '',
+                            text: '请选择'
+                        },
+                        {
+                            value: '上海',
+                            text: '上海'
+                        },
+                        {
+                            value: '北京',
+                            text: '北京'
+                        }
+                    ]), 500)
+                })
+            },
+            labelText: '城市：',
+            selectStyle: {
+                width: 100
+            }
+        },
     ] as (string | SelectFilter)[],
     fetchItems: getAllUsers,
     createItem: createUser,

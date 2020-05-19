@@ -10,7 +10,8 @@ export interface SelectFilter {
     name: string,
     options: { value: any, text: string }[]
     labelText?: string,
-    selectStyle?: CSSProperties
+    selectStyle?: CSSProperties,
+    getOptions?: () => Promise<{ value: any, text: string }[]>
 }
 
 export interface SearchProps {

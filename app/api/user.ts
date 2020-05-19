@@ -36,7 +36,7 @@ export const getAllUsers: SearchApi<User> = (props: any) => {
         .filter(u => {
             const result = selectFitlers.reduce((result: boolean, filter: string) => {
                 const [ name, value ] = filter.split('=')
-                console.log(result, u[name] + '', value)
+                // console.log(result, u[name] + '', value)
                 return result || ((u[name] + '') === value)
             }, false)
 

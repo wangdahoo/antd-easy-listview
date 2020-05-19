@@ -430,21 +430,78 @@ function createListView(options) {
     };
     useEffect(function () {
       if (props.created) props.created();
+      resolveOptions(filters);
       onFetchItems(keyword, formatFilters(filters), pagination.pageNum, pagination.pageSize);
       setInnerTableColumns(createTableColumns(tableColumns, renderOperations));
     }, [props]);
 
-    function onFetchItems(_x, _x2, _x3, _x4) {
+    function resolveOptions(_x) {
+      return _resolveOptions.apply(this, arguments);
+    }
+
+    function _resolveOptions() {
+      _resolveOptions = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(filters) {
+        var i, filter;
+        return regeneratorRuntime.wrap(function _callee7$(_context7) {
+          while (1) {
+            switch (_context7.prev = _context7.next) {
+              case 0:
+                i = 0;
+
+              case 1:
+                if (!(i < filters.length)) {
+                  _context7.next = 10;
+                  break;
+                }
+
+                filter = filters[i];
+
+                if (!(typeof filter !== 'string' && filter.getOptions)) {
+                  _context7.next = 7;
+                  break;
+                }
+
+                _context7.next = 6;
+                return filter.getOptions();
+
+              case 6:
+                filter.options = _context7.sent;
+
+              case 7:
+                i++;
+                _context7.next = 1;
+                break;
+
+              case 10:
+                setSelectFilters(filters.filter(function (filter) {
+                  return typeof filter !== 'string';
+                }).reduce(function (selectors, filter) {
+                  return _objectSpread2(_objectSpread2({}, selectors), {}, _defineProperty({}, filter.name, _objectSpread2(_objectSpread2({}, filter), {}, {
+                    value: filter.options[0].value
+                  })));
+                }, {}));
+
+              case 11:
+              case "end":
+                return _context7.stop();
+            }
+          }
+        }, _callee7);
+      }));
+      return _resolveOptions.apply(this, arguments);
+    }
+
+    function onFetchItems(_x2, _x3, _x4, _x5) {
       return _onFetchItems.apply(this, arguments);
     }
 
     function _onFetchItems() {
-      _onFetchItems = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(keyword, filters, pageNum, pageSize) {
+      _onFetchItems = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(keyword, filters, pageNum, pageSize) {
         var searchProps, _yield$fetchItems, items, total;
 
-        return regeneratorRuntime.wrap(function _callee7$(_context7) {
+        return regeneratorRuntime.wrap(function _callee8$(_context8) {
           while (1) {
-            switch (_context7.prev = _context7.next) {
+            switch (_context8.prev = _context8.next) {
               case 0:
                 searchProps = {
                   keyword: keyword,
@@ -453,11 +510,11 @@ function createListView(options) {
                   pageSize: pageSize
                 }; // console.log('searchProps =>', searchProps)
 
-                _context7.next = 3;
+                _context8.next = 3;
                 return fetchItems(searchProps, props);
 
               case 3:
-                _yield$fetchItems = _context7.sent;
+                _yield$fetchItems = _context8.sent;
                 items = _yield$fetchItems.items;
                 total = _yield$fetchItems.total;
                 setItems(items || []);
@@ -469,10 +526,10 @@ function createListView(options) {
 
               case 8:
               case "end":
-                return _context7.stop();
+                return _context8.stop();
             }
           }
-        }, _callee7);
+        }, _callee8);
       }));
       return _onFetchItems.apply(this, arguments);
     }
@@ -482,39 +539,39 @@ function createListView(options) {
     }
 
     function _onRefresh() {
-      _onRefresh = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
-        return regeneratorRuntime.wrap(function _callee8$(_context8) {
-          while (1) {
-            switch (_context8.prev = _context8.next) {
-              case 0:
-                _context8.next = 2;
-                return onFetchItems(keyword, formatFilters(filters), pagination.pageNum, pagination.pageSize);
-
-              case 2:
-              case "end":
-                return _context8.stop();
-            }
-          }
-        }, _callee8);
-      }));
-      return _onRefresh.apply(this, arguments);
-    }
-
-    function onChangeSelect(_x5, _x6) {
-      return _onChangeSelect.apply(this, arguments);
-    }
-
-    function _onChangeSelect() {
-      _onChangeSelect = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(name, value) {
-        var newSelectFilters;
+      _onRefresh = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
         return regeneratorRuntime.wrap(function _callee9$(_context9) {
           while (1) {
             switch (_context9.prev = _context9.next) {
               case 0:
+                _context9.next = 2;
+                return onFetchItems(keyword, formatFilters(filters), pagination.pageNum, pagination.pageSize);
+
+              case 2:
+              case "end":
+                return _context9.stop();
+            }
+          }
+        }, _callee9);
+      }));
+      return _onRefresh.apply(this, arguments);
+    }
+
+    function onChangeSelect(_x6, _x7) {
+      return _onChangeSelect.apply(this, arguments);
+    }
+
+    function _onChangeSelect() {
+      _onChangeSelect = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(name, value) {
+        var newSelectFilters;
+        return regeneratorRuntime.wrap(function _callee10$(_context10) {
+          while (1) {
+            switch (_context10.prev = _context10.next) {
+              case 0:
                 newSelectFilters = _objectSpread2(_objectSpread2({}, selectFilters), {}, _defineProperty({}, name, _objectSpread2(_objectSpread2({}, selectFilters[name]), {}, {
                   value: value
                 })));
-                _context9.next = 3;
+                _context10.next = 3;
                 return onFetchItems(keyword, formatFilters(filters, newSelectFilters), 1, pagination.pageSize);
 
               case 3:
@@ -522,10 +579,10 @@ function createListView(options) {
 
               case 4:
               case "end":
-                return _context9.stop();
+                return _context10.stop();
             }
           }
-        }, _callee9);
+        }, _callee10);
       }));
       return _onChangeSelect.apply(this, arguments);
     }
@@ -637,22 +694,22 @@ function createListView(options) {
       });
     }
 
-    function onSubmit(_x7) {
+    function onSubmit(_x8) {
       return _onSubmit.apply(this, arguments);
     }
 
     function _onSubmit() {
-      _onSubmit = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(form) {
-        return regeneratorRuntime.wrap(function _callee10$(_context10) {
+      _onSubmit = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(form) {
+        return regeneratorRuntime.wrap(function _callee11$(_context11) {
           while (1) {
-            switch (_context10.prev = _context10.next) {
+            switch (_context11.prev = _context11.next) {
               case 0:
                 if (!(formType === FORM_TYPE_CREATE)) {
-                  _context10.next = 4;
+                  _context11.next = 4;
                   break;
                 }
 
-                _context10.next = 3;
+                _context11.next = 3;
                 return createItem(form, props);
 
               case 3:
@@ -660,11 +717,11 @@ function createListView(options) {
 
               case 4:
                 if (!(formType === FORM_TYPE_UPDATE)) {
-                  _context10.next = 8;
+                  _context11.next = 8;
                   break;
                 }
 
-                _context10.next = 7;
+                _context11.next = 7;
                 return updateItem(form, props);
 
               case 7:
@@ -672,15 +729,15 @@ function createListView(options) {
 
               case 8:
                 setDrawerVisible(false);
-                _context10.next = 11;
+                _context11.next = 11;
                 return onFetchItems(keyword, formatFilters(filters), 1, pagination.pageSize);
 
               case 11:
               case "end":
-                return _context10.stop();
+                return _context11.stop();
             }
           }
-        }, _callee10);
+        }, _callee11);
       }));
       return _onSubmit.apply(this, arguments);
     }
@@ -840,7 +897,7 @@ function createListView(options) {
             }, _callee4);
           }));
 
-          function onChange(_x8, _x9) {
+          function onChange(_x9, _x10) {
             return _onChange.apply(this, arguments);
           }
 
@@ -866,7 +923,7 @@ function createListView(options) {
             }, _callee5);
           }));
 
-          function onShowSizeChange(_x10, _x11) {
+          function onShowSizeChange(_x11, _x12) {
             return _onShowSizeChange.apply(this, arguments);
           }
 

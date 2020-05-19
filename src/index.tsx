@@ -105,9 +105,31 @@ export function createListView<T>(options: ListViewOptions<T>) {
 
         useEffect(() => {
             if (props.created) props.created()
+            resolveOptions(filters)
             onFetchItems(keyword, formatFilters(filters), pagination.pageNum, pagination.pageSize)
             setInnerTableColumns(createTableColumns(tableColumns, renderOperations))
         }, [props])
+
+        async function resolveOptions (filters: (string | SelectFilter)[]) {
+            for (let i = 0; i < filters.length; i++) {
+                const filter = filters[i]
+                if (typeof filter !== 'string' && filter.getOptions) {
+                    filter.options = await filter.getOptions()
+                }
+            }
+
+            setSelectFilters((filters
+                .filter(filter => typeof filter !== 'string') as _SelectFilter[])
+                .reduce((selectors, filter: _SelectFilter) => {
+                    return {
+                        ...selectors,
+                        [filter.name]: {
+                            ...filter,
+                            value: filter.options[0].value,
+                        }
+                    }
+                }, {}) as { [key: string]: any })
+        }
 
         async function onFetchItems(keyword: string, filters: string[], pageNum: number, pageSize: number) {
             const searchProps = {
