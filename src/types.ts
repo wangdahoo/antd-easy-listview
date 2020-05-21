@@ -46,6 +46,7 @@ export interface ListViewOptions<T> {
         scrollToFirstRowOnChange?: boolean | undefined
     }) | undefined
     filters: (string | SelectFilter)[]
+    createItemEnabled: boolean
     batchDeleteEnabled: boolean
     createItem: CreateApi<T>
     updateItem: UpdateApi<T>

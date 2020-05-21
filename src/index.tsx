@@ -28,6 +28,7 @@ export function createListView<T>(options: ListViewOptions<T>) {
         tableWrapper,
         tableScroll,
         filters,
+        createItemEnabled,
         batchDeleteEnabled,
         createItem,
         deleteItem,
@@ -330,9 +331,9 @@ export function createListView<T>(options: ListViewOptions<T>) {
                 <Button type="primary" icon={<ReloadOutlined />} style={{ marginLeft: 10 }} onClick={onRefresh}>
                     刷新
                 </Button>
-                <Button type="primary" icon={<PlusOutlined />} style={{ marginLeft: 10 }} onClick={onCreate}>
+                {createItemEnabled ? <Button type="primary" icon={<PlusOutlined />} style={{ marginLeft: 10 }} onClick={onCreate}>
                     添加
-                </Button>
+                </Button> : null}
                 {batchDeleteEnabled ? (
                     <Button type="primary" danger disabled={selectedRecords.length === 0} icon={<DeleteOutlined />} style={{ marginLeft: 10 }} onClick={onBatchDelete}>
                         删除

@@ -271,6 +271,7 @@ var defaultOptions = function defaultOptions() {
     tableWrapper: 'card',
     tableScroll: undefined,
     filters: [],
+    createItemEnabled: true,
     batchDeleteEnabled: false,
     // apis
     createItem: function createItem() {
@@ -327,6 +328,7 @@ function createListView(options) {
       tableWrapper = _options.tableWrapper,
       tableScroll = _options.tableScroll,
       filters = _options.filters,
+      createItemEnabled = _options.createItemEnabled,
       batchDeleteEnabled = _options.batchDeleteEnabled,
       createItem = _options.createItem,
       deleteItem = _options.deleteItem,
@@ -847,14 +849,14 @@ function createListView(options) {
         marginLeft: 10
       },
       onClick: onRefresh
-    }, "\u5237\u65B0"), /*#__PURE__*/React.createElement(Button, {
+    }, "\u5237\u65B0"), createItemEnabled ? /*#__PURE__*/React.createElement(Button, {
       type: "primary",
       icon: /*#__PURE__*/React.createElement(PlusOutlined, null),
       style: {
         marginLeft: 10
       },
       onClick: onCreate
-    }, "\u6DFB\u52A0"), batchDeleteEnabled ? /*#__PURE__*/React.createElement(Button, {
+    }, "\u6DFB\u52A0") : null, batchDeleteEnabled ? /*#__PURE__*/React.createElement(Button, {
       type: "primary",
       danger: true,
       disabled: selectedRecords.length === 0,

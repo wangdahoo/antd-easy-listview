@@ -16,6 +16,7 @@ export const defaultOptions = <T>(): ListViewOptions<T> => ({
     tableWrapper: 'card',
     tableScroll: undefined,
     filters: [],
+    createItemEnabled: true,
     batchDeleteEnabled: false,
 
     // apis
