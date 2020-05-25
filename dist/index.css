@@ -38,6 +38,7 @@
 }
 .elv-list-view .table-wrapper > .list-extra-wrapper {
   display: flex;
+  padding: 16px 0;
 }
 .elv-list-view .table-wrapper > .list-extra-wrapper > .flex-1 {
   flex: 1;

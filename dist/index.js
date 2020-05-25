@@ -947,11 +947,7 @@ function createListView(options) {
       className: "list-extra-wrapper"
     }, /*#__PURE__*/React.createElement("div", {
       className: "flex-1"
-    }), /*#__PURE__*/React.createElement("div", {
-      style: {
-        paddingBottom: 16
-      }
-    }, listExtra)), listContent), /*#__PURE__*/React.createElement(Drawer, {
+    }), /*#__PURE__*/React.createElement("div", null, listExtra)), listContent), /*#__PURE__*/React.createElement(Drawer, {
       title: drawerTitle,
       width: 800,
       placement: "right",

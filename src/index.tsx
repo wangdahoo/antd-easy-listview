@@ -382,7 +382,7 @@ export function createListView<T>(options: ListViewOptions<T>) {
                         <div className="table-wrapper">
                             <div className="list-extra-wrapper">
                                 <div className="flex-1"></div>
-                                <div style={{ paddingBottom: 16 }}>{listExtra}</div>
+                                <div>{listExtra}</div>
                             </div>
                             {listContent}
                         </div>
