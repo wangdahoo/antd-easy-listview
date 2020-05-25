@@ -33,6 +33,20 @@
 .elv-list-view .table-items .operations .ant-btn:last-of-type {
   margin-right: 0;
 }
+.elv-list-view .table-wrapper {
+  background-color: #fff;
+}
+.elv-list-view .table-wrapper > .list-extra-wrapper {
+  display: flex;
+}
+.elv-list-view .table-wrapper > .list-extra-wrapper > .flex-1 {
+  flex: 1;
+}
+.elv-list-view .table-wrapper .ant-table {
+  border-style: solid !important;
+  border-color: #eee !important;
+  border-width: 1px 1px 0 1px !important;
+}
 
 .ant-modal.elv-fullscreen-modal {
   top: 0;

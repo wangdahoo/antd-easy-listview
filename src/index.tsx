@@ -22,6 +22,7 @@ export function createListView<T>(options: ListViewOptions<T>) {
         className,
         extraWidth,
         extraSearchPlaceholder,
+        extraAddOn,
         tableClassName,
         tableColumns,
         tableOperations,
@@ -339,6 +340,7 @@ export function createListView<T>(options: ListViewOptions<T>) {
                         删除
                     </Button>
                 ) : null}
+                {extraAddOn && extraAddOn(props)}
             </div>
         )
 
@@ -373,12 +375,15 @@ export function createListView<T>(options: ListViewOptions<T>) {
             <Layout className={classnames('elv-list-view', className)}>
                 <Content>
                     {tableWrapper !== 'none' ? (
-                        <Card title={`${itemName}列表`} extra={listExtra}>
+                        <Card title={options.title === false ? null : options.title || `${itemName}列表`} extra={listExtra}>
                             {listContent}
                         </Card>
                     ) : (
-                        <div style={{ backgroundColor: '#fff' }}>
-                            <div style={{ paddingBottom: 16 }}>{listExtra}</div>
+                        <div className="table-wrapper">
+                            <div className="list-extra-wrapper">
+                                <div className="flex-1"></div>
+                                <div style={{ paddingBottom: 16 }}>{listExtra}</div>
+                            </div>
                             {listContent}
                         </div>
                     )}

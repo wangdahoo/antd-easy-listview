@@ -31,10 +31,12 @@ export type SearchApi<T> = (searchProps: SearchProps, props: any) => Promise<{
 export type BatchDeleteApi<T> = (selectdRecords: Partial<T>[], props: any) => Promise<void>
 
 export interface ListViewOptions<T> {
+    title?: string|boolean
     itemName: string
     className: string
     extraWidth: number|'auto'
     extraSearchPlaceholder: string
+    extraAddOn?: (props: any) => (string | JSX.Element)
     tableClassName: string
     tableColumns: any[]
     tableOperations: ('update'|'delete')[]
@@ -61,6 +63,6 @@ export interface ListViewOptions<T> {
     detailTitle?: string | React.Component<{}, {}, any> | React.FC<{}> | undefined
     createDetailComponent?: (record: T, props: any, quit?: () => void) => React.ReactChildren
 
-    creationTitle?: string | React.Component | React.FC,
+    creationTitle?: string | React.Component<{}, {}, any> | React.FC<{}> | undefined,
     createCreationComponent?: (props: any, quit?: () => void) => React.ReactChildren
 }

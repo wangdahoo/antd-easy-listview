@@ -322,6 +322,7 @@ function createListView(options) {
       className = _options.className,
       extraWidth = _options.extraWidth,
       extraSearchPlaceholder = _options.extraSearchPlaceholder,
+      extraAddOn = _options.extraAddOn,
       tableClassName = _options.tableClassName,
       tableColumns = _options.tableColumns,
       tableOperations = _options.tableOperations,
@@ -865,7 +866,7 @@ function createListView(options) {
         marginLeft: 10
       },
       onClick: onBatchDelete
-    }, "\u5220\u9664") : null);
+    }, "\u5220\u9664") : null, extraAddOn && extraAddOn(props));
     var listContent = /*#__PURE__*/React.createElement(Table, {
       className: classnames('table-items', tableClassName),
       columns: innerTableColumns,
@@ -938,17 +939,19 @@ function createListView(options) {
     return /*#__PURE__*/React.createElement(Layout, {
       className: classnames('elv-list-view', className)
     }, /*#__PURE__*/React.createElement(Content, null, tableWrapper !== 'none' ? /*#__PURE__*/React.createElement(Card, {
-      title: "".concat(itemName, "\u5217\u8868"),
+      title: options.title === false ? null : options.title || "".concat(itemName, "\u5217\u8868"),
       extra: listExtra
     }, listContent) : /*#__PURE__*/React.createElement("div", {
-      style: {
-        backgroundColor: '#fff'
-      }
+      className: "table-wrapper"
     }, /*#__PURE__*/React.createElement("div", {
+      className: "list-extra-wrapper"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "flex-1"
+    }), /*#__PURE__*/React.createElement("div", {
       style: {
         paddingBottom: 16
       }
-    }, listExtra), listContent), /*#__PURE__*/React.createElement(Drawer, {
+    }, listExtra)), listContent), /*#__PURE__*/React.createElement(Drawer, {
       title: drawerTitle,
       width: 800,
       placement: "right",

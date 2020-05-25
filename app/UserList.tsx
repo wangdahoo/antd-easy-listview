@@ -1,9 +1,11 @@
+import React from 'react'
 import '@wangdahoo/antd-easy-form/dist/index.css'
 import { FormItemType } from '@wangdahoo/antd-easy-form'
 // import '../dist/index.css'
 // import { createListViewOptions, createListView } from '../dist'
 import { createListViewOptions, createListView, SelectFilter } from '../src'
 import { getAllUsers, createUser, updateUser, deleteUsers, batchDeleteUsers, User } from './api'
+import { Button, message } from 'antd'
 
 const createFormItems = (props: any) => [
     {
@@ -79,9 +81,23 @@ const tableColumns = [
     }
 ]
 
+const extraAddOn = (props: any) => {
+    return <Button
+        type="primary"
+        onClick={() => {
+            console.log(props)
+            message.error('not implemented!')
+        }}
+        style={{ marginLeft: 10 }}
+    >
+        导出
+    </Button>
+}
+
 const options = {
     ...createListViewOptions(),
     itemName: '人员',
+    extraAddOn,
     createFormItems,
     updateFormItems: (record: User, props: any) => {
         // console.log(record)
@@ -104,6 +120,7 @@ const options = {
             }))
         ]
     },
+    tableWrapper: 'none' as 'card'|'none',
     tableColumns,
     filters: [
         'name',

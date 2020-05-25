@@ -5,7 +5,7 @@ export default function App (props: any) {
 
     return (
         <div style={{ padding: 20 }}>
-            <UserList />
+            <UserList extra={{ data: 'extra data' }} />
         </div>
     )
 }
