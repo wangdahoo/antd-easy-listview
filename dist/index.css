@@ -38,15 +38,21 @@
 }
 .elv-list-view .table-wrapper > .list-extra-wrapper {
   display: flex;
-  padding: 16px 0;
+  padding: 16px;
 }
 .elv-list-view .table-wrapper > .list-extra-wrapper > .flex-1 {
   flex: 1;
 }
 .elv-list-view .table-wrapper .ant-table {
-  border-style: solid !important;
-  border-color: #eee !important;
-  border-width: 1px 1px 0 1px !important;
+  border-style: solid;
+  border-color: #eee;
+  border-width: 1px 0 0 0;
+}
+.elv-list-view .table-wrapper .ant-pagination.ant-table-pagination.ant-table-pagination-right {
+  margin-right: 8px;
+}
+.elv-list-view .table-wrapper .ant-pagination.ant-table-pagination.ant-table-pagination-right .ant-pagination-options {
+  margin-left: 8px;
 }
 
 .ant-modal.elv-fullscreen-modal {
