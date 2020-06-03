@@ -120,7 +120,7 @@ export function createListView<T>(options: ListViewOptions<T>) {
             for (let i = 0; i < filters.length; i++) {
                 const filter = filters[i]
                 if (typeof filter !== 'string' && filter.getOptions) {
-                    filter.options = await filter.getOptions()
+                    filter.options = await filter.getOptions(props)
                 }
             }
 

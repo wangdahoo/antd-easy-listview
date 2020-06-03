@@ -11,7 +11,7 @@ export interface SelectFilter {
     options: { value: any, text: string }[]
     labelText?: string,
     selectStyle?: CSSProperties,
-    getOptions?: () => Promise<{ value: any, text: string }[]>
+    getOptions?: (props?: any) => Promise<{ value: any, text: string }[]>
 }
 
 export interface SearchProps {

@@ -465,7 +465,7 @@ function createListView(options) {
                 }
 
                 _context7.next = 6;
-                return filter.getOptions();
+                return filter.getOptions(props);
 
               case 6:
                 filter.options = _context7.sent;
