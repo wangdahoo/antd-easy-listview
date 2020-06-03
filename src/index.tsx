@@ -2,12 +2,12 @@ import './index.less'
 
 import React, { useState, useRef, useEffect } from 'react'
 import { Layout, Card, Table, Button, Input, Drawer, Modal, Select, message } from 'antd'
-import { ReloadOutlined, PlusOutlined, EditOutlined, DeleteOutlined, SearchOutlined } from '@ant-design/icons'
+import { ReloadOutlined, PlusOutlined, EditOutlined, DeleteOutlined, SearchOutlined, ExportOutlined } from '@ant-design/icons'
 import { Form } from '@wangdahoo/antd-easy-form'
 import classnames from 'classnames'
 import FullscreenModal from './FullscreenModal'
 import { defaultOptions } from './defaultOptions'
-import { ListViewOptions, SelectFilter as _SelectFilter } from './types'
+import { ListViewOptions, SelectFilter as _SelectFilter, ExportProps } from './types'
 
 const Content = Layout.Content
 const Search = Input.Search
@@ -46,7 +46,11 @@ export function createListView<T>(options: ListViewOptions<T>) {
 
         // creation in fullscreen modal
         creationTitle,
-        createCreationComponent
+        createCreationComponent,
+
+        // export options
+        exportEnabled,
+        exportItems
     } = options
 
     const FORM_TYPE_CREATE = 1
@@ -230,6 +234,17 @@ export function createListView<T>(options: ListViewOptions<T>) {
             })
         }
 
+        function onExport () {
+            const exportProps = {
+                keyword,
+                filters
+            } as ExportProps
+
+            if (exportItems) {
+                exportItems(exportProps, props)
+            }
+        }
+
         async function onSubmit(form: any) {
             if (formType === FORM_TYPE_CREATE) {
                 await createItem(form, props)
@@ -338,6 +353,11 @@ export function createListView<T>(options: ListViewOptions<T>) {
                 {batchDeleteEnabled ? (
                     <Button type="primary" danger disabled={selectedRecords.length === 0} icon={<DeleteOutlined />} style={{ marginLeft: 10 }} onClick={onBatchDelete}>
                         删除
+                    </Button>
+                ) : null}
+                {exportEnabled && exportItems ? (
+                    <Button type="default" icon={<ExportOutlined />} style={{ marginLeft: 10 }} onClick={onExport}>
+                        导出
                     </Button>
                 ) : null}
                 {extraAddOn && extraAddOn(props)}

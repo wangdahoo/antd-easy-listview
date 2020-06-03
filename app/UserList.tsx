@@ -81,23 +81,23 @@ const tableColumns = [
     }
 ]
 
-const extraAddOn = (props: any) => {
-    return <Button
-        type="primary"
-        onClick={() => {
-            console.log(props)
-            message.error('not implemented!')
-        }}
-        style={{ marginLeft: 10 }}
-    >
-        导出
-    </Button>
-}
+// const extraAddOn = (props: any) => {
+//     return <Button
+//         type="primary"
+//         onClick={() => {
+//             console.log(props)
+//             message.error('not implemented!')
+//         }}
+//         style={{ marginLeft: 10 }}
+//     >
+//         导出
+//     </Button>
+// }
 
 const options = {
     ...createListViewOptions(),
     itemName: '人员',
-    extraAddOn,
+    // extraAddOn,
     createFormItems,
     updateFormItems: (record: User, props: any) => {
         // console.log(record)
@@ -178,7 +178,9 @@ const options = {
     updateItem: updateUser,
     deleteItem: deleteUsers,
     batchDeleteEnabled: true,
-    batchDeleteItems: batchDeleteUsers
+    batchDeleteItems: batchDeleteUsers,
+    exportEnabled: true,
+    exportItems: console.log
 }
 
 export default createListView(options)

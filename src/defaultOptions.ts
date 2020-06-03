@@ -41,8 +41,6 @@ export const defaultOptions = <T>(): ListViewOptions<T> => ({
     creationTitle: '',
 
     // export options
-    // exportDisabled: true,
-    // exportFileNamePrefix: '',
-    // exportSheetName: 'sheet1',
-    // exportColumns: {}
+    exportEnabled: false,
+    exportItems: undefined
 })

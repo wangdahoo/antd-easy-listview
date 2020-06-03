@@ -28,6 +28,13 @@ export type SearchApi<T> = (searchProps: SearchProps, props: any) => Promise<{
     pageSize: number
 }>
 
+export interface ExportProps {
+    keyword: string
+    filters: string[]
+}
+
+export type ExportApi = (exportProps: ExportProps, props: any) => void
+
 export type BatchDeleteApi<T> = (selectdRecords: Partial<T>[], props: any) => Promise<void>
 
 export interface ListViewOptions<T> {
@@ -63,6 +70,9 @@ export interface ListViewOptions<T> {
     detailTitle?: string | React.Component<{}, {}, any> | React.FC<{}> | undefined
     createDetailComponent?: (record: T, props: any, quit?: () => void) => React.ReactChildren
 
-    creationTitle?: string | React.Component<{}, {}, any> | React.FC<{}> | undefined,
+    creationTitle?: string | React.Component<{}, {}, any> | React.FC<{}> | undefined
     createCreationComponent?: (props: any, quit?: () => void) => React.ReactChildren
+
+    exportEnabled?: boolean
+    exportItems?: ExportApi
 }
