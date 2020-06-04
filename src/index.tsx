@@ -237,7 +237,7 @@ export function createListView<T>(options: ListViewOptions<T>) {
         function onExport () {
             const exportProps = {
                 keyword,
-                filters
+                filters: formatFilters(filters)
             } as ExportProps
 
             if (exportItems) {

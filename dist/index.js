@@ -700,7 +700,7 @@ function createListView(options) {
     function onExport() {
       var exportProps = {
         keyword: keyword,
-        filters: filters
+        filters: formatFilters(filters)
       };
 
       if (exportItems) {
