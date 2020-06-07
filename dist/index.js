@@ -677,10 +677,11 @@ function createListView(options) {
 
                   case 2:
                     message.success("\u6279\u91CF\u5220\u9664".concat(itemName, "\u6210\u529F"));
-                    _context2.next = 5;
+                    setSelectedRecords([]);
+                    _context2.next = 6;
                     return onFetchItems(keyword, formatFilters(filters), 1, pagination.pageSize);
 
-                  case 5:
+                  case 6:
                   case "end":
                     return _context2.stop();
                 }

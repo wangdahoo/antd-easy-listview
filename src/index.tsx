@@ -229,6 +229,7 @@ export function createListView<T>(options: ListViewOptions<T>) {
                 onOk: async function () {
                     await batchDeleteItems(selectedRecords, props)
                     message.success(`批量删除${itemName}成功`)
+                    setSelectedRecords([])
                     await onFetchItems(keyword, formatFilters(filters), 1, pagination.pageSize)
                 }
             })
