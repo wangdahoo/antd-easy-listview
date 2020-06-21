@@ -9,7 +9,6 @@ import FullscreenModal from './FullscreenModal'
 import { defaultOptions } from './defaultOptions'
 import { ListViewOptions, SelectFilter as _SelectFilter, ExportProps } from './types'
 
-const Content = Layout.Content
 const Search = Input.Search
 
 export function createListView<T>(options: ListViewOptions<T>) {
@@ -316,7 +315,7 @@ export function createListView<T>(options: ListViewOptions<T>) {
         }
 
         const listExtra = (
-            <div style={{ display: 'flex', width: extraWidth }}>
+            <div className='list-extra' style={{ width: extraWidth }}>
                 {Object.keys(selectFilters).map((name, index) => {
                     return (
                         <div key={index}>
@@ -336,8 +335,8 @@ export function createListView<T>(options: ListViewOptions<T>) {
                     )
                 })}
                 <Search
+                    className='input-search'
                     placeholder={extraSearchPlaceholder}
-                    style={{ flex: 1 }}
                     value={keyword}
                     onChange={e => setKeyword(e.target.value)}
                     onSearch={async () => {
@@ -393,8 +392,8 @@ export function createListView<T>(options: ListViewOptions<T>) {
         )
 
         return (
-            <Layout className={classnames('elv-list-view', className)}>
-                <Content>
+            <div className={classnames('ant-layout', 'elv-list-view', className)}>
+                <div className='ant-layout-content'>
                     {tableWrapper !== 'none' ? (
                         <Card title={options.title === false ? null : options.title || `${itemName}列表`} extra={listExtra}>
                             {listContent}
@@ -403,7 +402,7 @@ export function createListView<T>(options: ListViewOptions<T>) {
                         <div className="table-wrapper">
                             <div className="list-extra-wrapper">
                                 <div className="flex-1"></div>
-                                <div>{listExtra}</div>
+                                {listExtra}
                             </div>
                             {listContent}
                         </div>
@@ -469,8 +468,8 @@ export function createListView<T>(options: ListViewOptions<T>) {
                             }) : null}
                         </FullscreenModal>
                     ) : null}
-                </Content>
-            </Layout>
+                </div>
+            </div>
         )
     }
 }

@@ -1,5 +1,5 @@
 import React, { forwardRef, useState, useImperativeHandle, useRef, useEffect } from 'react';
-import { Modal, Button, Divider, Layout, Input, Select, Table, Card, Drawer, message } from 'antd';
+import { Modal, Button, Divider, Input, Select, Table, Card, Drawer, message } from 'antd';
 import { ArrowLeftOutlined, DeleteOutlined, SearchOutlined, ReloadOutlined, PlusOutlined, ExportOutlined, EditOutlined } from '@ant-design/icons';
 import { Form } from '@wangdahoo/antd-easy-form';
 import classnames from 'classnames';
@@ -310,7 +310,6 @@ var defaultOptions = function defaultOptions() {
   };
 };
 
-var Content = Layout.Content;
 var Search = Input.Search;
 function createListView(options) {
   if (!options.itemName) throw new Error('itemName 不能为空');
@@ -806,8 +805,8 @@ function createListView(options) {
     };
 
     var listExtra = /*#__PURE__*/React.createElement("div", {
+      className: "list-extra",
       style: {
-        display: 'flex',
         width: extraWidth
       }
     }, Object.keys(selectFilters).map(function (name, index) {
@@ -828,10 +827,8 @@ function createListView(options) {
         }, option.text);
       })));
     }), /*#__PURE__*/React.createElement(Search, {
+      className: "input-search",
       placeholder: extraSearchPlaceholder,
-      style: {
-        flex: 1
-      },
       value: keyword,
       onChange: function onChange(e) {
         return setKeyword(e.target.value);
@@ -955,9 +952,11 @@ function createListView(options) {
       rowSelection: batchDeleteEnabled ? rowSelection : undefined,
       scroll: tableScroll
     });
-    return /*#__PURE__*/React.createElement(Layout, {
-      className: classnames('elv-list-view', className)
-    }, /*#__PURE__*/React.createElement(Content, null, tableWrapper !== 'none' ? /*#__PURE__*/React.createElement(Card, {
+    return /*#__PURE__*/React.createElement("div", {
+      className: classnames('ant-layout', 'elv-list-view', className)
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "ant-layout-content"
+    }, tableWrapper !== 'none' ? /*#__PURE__*/React.createElement(Card, {
       title: options.title === false ? null : options.title || "".concat(itemName, "\u5217\u8868"),
       extra: listExtra
     }, listContent) : /*#__PURE__*/React.createElement("div", {
@@ -966,7 +965,7 @@ function createListView(options) {
       className: "list-extra-wrapper"
     }, /*#__PURE__*/React.createElement("div", {
       className: "flex-1"
-    }), /*#__PURE__*/React.createElement("div", null, listExtra)), listContent), /*#__PURE__*/React.createElement(Drawer, {
+    }), listExtra), listContent), /*#__PURE__*/React.createElement(Drawer, {
       title: drawerTitle,
       width: 800,
       placement: "right",

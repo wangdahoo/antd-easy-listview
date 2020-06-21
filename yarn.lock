@@ -798,6 +798,14 @@
     "@babel/helper-create-regexp-features-plugin" "^7.8.3"
     "@babel/helper-plugin-utils" "^7.8.3"
 
+"@babel/polyfill@^7.10.1":
+  version "7.10.1"
+  resolved "https://registry.npm.taobao.org/@babel/polyfill/download/@babel/polyfill-7.10.1.tgz#d56d4c8be8dd6ec4dce2649474e9b707089f739f"
+  integrity sha1-1W1Mi+jdbsTc4mSUdOm3Bwifc58=
+  dependencies:
+    core-js "^2.6.5"
+    regenerator-runtime "^0.13.4"
+
 "@babel/preset-env@^7.4.4", "@babel/preset-env@^7.9.5":
   version "7.9.6"
   resolved "https://registry.npm.taobao.org/@babel/preset-env/download/@babel/preset-env-7.9.6.tgz?cache=0&sync_timestamp=1588185767229&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fpreset-env%2Fdownload%2F%40babel%2Fpreset-env-7.9.6.tgz#df063b276c6455ec6fcfc6e53aacc38da9b0aea6"
