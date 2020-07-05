@@ -318,20 +318,25 @@ export function createListView<T>(options: ListViewOptions<T>) {
             <div className='list-extra' style={{ width: extraWidth }}>
                 {Object.keys(selectFilters).map((name, index) => {
                     return (
-                        <div key={index}>
-                            <span>{selectFilters[name].labelText}</span>
-                            <Select
-                                style={{ ...(selectFilters[name].selectStyle || {}), margin: '0 15px 0 5px' }}
-                                value={selectFilters[name].value}
-                                onChange={value => onChangeSelect(name, value)}
-                            >
-                                {selectFilters[name].options.map((option: { value: string, text: string }, optionIndex: number) => {
-                                    return (
-                                        <Select.Option key={optionIndex} value={option.value}>{option.text}</Select.Option>
-                                    )
-                                })}
-                            </Select>
-                        </div>
+                        <span key={index}>
+                            <span style={{ float: 'left', lineHeight: '32px' }}>{selectFilters[name].labelText}</span>
+                            <div style={{ float: 'left' }}>
+                                <Select
+                                    style={{ ...(selectFilters[name].selectStyle || {}), margin: '0 15px 0 5px' }}
+                                    value={selectFilters[name].value}
+                                    onChange={value => onChangeSelect(name, value)}
+                                    showSearch
+                                    optionFilterProp="children"
+                                    filterOption={(input, option) => option?.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+                                >
+                                    {selectFilters[name].options.map((option: { value: string, text: string }, optionIndex: number) => {
+                                        return (
+                                            <Select.Option key={optionIndex} value={option.value}>{option.text}</Select.Option>
+                                        )
+                                    })}
+                                </Select>
+                            </div>
+                        </span>
                     )
                 })}
                 <Search

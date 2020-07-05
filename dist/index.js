@@ -810,22 +810,36 @@ function createListView(options) {
         width: extraWidth
       }
     }, Object.keys(selectFilters).map(function (name, index) {
-      return /*#__PURE__*/React.createElement("div", {
+      return /*#__PURE__*/React.createElement("span", {
         key: index
-      }, /*#__PURE__*/React.createElement("span", null, selectFilters[name].labelText), /*#__PURE__*/React.createElement(Select, {
+      }, /*#__PURE__*/React.createElement("span", {
+        style: {
+          float: 'left',
+          lineHeight: '32px'
+        }
+      }, selectFilters[name].labelText), /*#__PURE__*/React.createElement("div", {
+        style: {
+          float: 'left'
+        }
+      }, /*#__PURE__*/React.createElement(Select, {
         style: _objectSpread2(_objectSpread2({}, selectFilters[name].selectStyle || {}), {}, {
           margin: '0 15px 0 5px'
         }),
         value: selectFilters[name].value,
         onChange: function onChange(value) {
           return onChangeSelect(name, value);
+        },
+        showSearch: true,
+        optionFilterProp: "children",
+        filterOption: function filterOption(input, option) {
+          return (option === null || option === void 0 ? void 0 : option.props.children.toLowerCase().indexOf(input.toLowerCase())) >= 0;
         }
       }, selectFilters[name].options.map(function (option, optionIndex) {
         return /*#__PURE__*/React.createElement(Select.Option, {
           key: optionIndex,
           value: option.value
         }, option.text);
-      })));
+      }))));
     }), /*#__PURE__*/React.createElement(Search, {
       className: "input-search",
       placeholder: extraSearchPlaceholder,
