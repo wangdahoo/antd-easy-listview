@@ -896,7 +896,7 @@ function createListView(options) {
         marginLeft: 10
       },
       onClick: onExport
-    }, "\u5BFC\u51FA") : null, extraAddOn && extraAddOn(props));
+    }, "\u5BFC\u51FA") : null, extraAddOn && extraAddOn(props, onRefresh));
     var listContent = /*#__PURE__*/React.createElement(Table, {
       className: classnames('table-items', tableClassName),
       columns: innerTableColumns,

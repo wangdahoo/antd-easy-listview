@@ -365,7 +365,7 @@ export function createListView<T>(options: ListViewOptions<T>) {
                         导出
                     </Button>
                 ) : null}
-                {extraAddOn && extraAddOn(props)}
+                {extraAddOn && extraAddOn(props, onRefresh)}
             </div>
         )
 

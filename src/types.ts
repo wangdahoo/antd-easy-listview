@@ -43,7 +43,7 @@ export interface ListViewOptions<T> {
     className: string
     extraWidth: number|'auto'
     extraSearchPlaceholder: string
-    extraAddOn?: (props: any) => (string | JSX.Element)
+    extraAddOn?: (props: any, onRefresh: () => Promise<void>) => (string | JSX.Element)
     tableClassName: string
     tableColumns: any[]
     tableOperations: ('update'|'delete')[]
