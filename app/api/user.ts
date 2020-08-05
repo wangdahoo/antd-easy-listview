@@ -9,6 +9,7 @@ export interface User {
     name: string
     gender: number
     age: number
+    city: string
 }
 
 // const log = (action: string) => console.log(action, users)
@@ -19,7 +20,8 @@ for (let i = 0; i < 25; i++) {
         id: ++id,
         name: `王${i}虎`,
         gender: i % 2 ? 1 : 0,
-        age: Number((Math.random() * 100).toFixed(0))
+        age: Number((Math.random() * 100).toFixed(0)),
+        city: i % 3 ? '北京' : '上海'
     })
 }
 
@@ -36,9 +38,9 @@ export const getAllUsers: SearchApi<User> = (props: any) => {
         .filter(u => {
             const result = selectFitlers.reduce((result: boolean, filter: string) => {
                 const [ name, value ] = filter.split('=')
-                // console.log(result, u[name] + '', value)
-                return result || ((u[name] + '') === value)
-            }, false)
+                if (value === '') return result
+                return result && (u[name] + '' === value)
+            }, true)
 
             return result
         })

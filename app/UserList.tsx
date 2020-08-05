@@ -1,11 +1,11 @@
-import React from 'react'
+// import React from 'react'
 import '@wangdahoo/antd-easy-form/dist/index.css'
 import { FormItemType } from '@wangdahoo/antd-easy-form'
 // import '../dist/index.css'
 // import { createListViewOptions, createListView } from '../dist'
 import { createListViewOptions, createListView, SelectFilter } from '../src'
 import { getAllUsers, createUser, updateUser, deleteUsers, batchDeleteUsers, User } from './api'
-import { Button, message } from 'antd'
+// import { Button, message } from 'antd'
 
 const createFormItems = (props: any) => [
     {
@@ -41,6 +41,22 @@ const createFormItems = (props: any) => [
         step: 0.1,
         unit: '岁',
         defaultValue: 18
+    },
+    {
+        name: 'city',
+        labelText: '城市',
+        itemType: FormItemType.SELECT,
+        options: [
+            {
+                value: '上海',
+                text: '上海'
+            },
+            {
+                value: '北京',
+                text: '北京'
+            },
+        ],
+        defaultValue: '上海'
     }
 ]
 
@@ -73,6 +89,13 @@ const tableColumns = [
         dataIndex: 'age',
         key: 'age',
         render: (age: number) => `${age}岁`,
+        width: 100,
+        align: 'center'
+    },
+    {
+        title: '城市',
+        dataIndex: 'city',
+        key: 'city',
         width: 100,
         align: 'center'
     },
@@ -179,8 +202,8 @@ const options = {
     deleteItem: deleteUsers,
     batchDeleteEnabled: true,
     batchDeleteItems: batchDeleteUsers,
-    exportEnabled: true,
-    exportItems: console.log
+    // exportEnabled: false,
+    // exportItems: console.log
 }
 
 export default createListView(options)
