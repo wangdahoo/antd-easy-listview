@@ -1,4 +1,4 @@
-import { SearchApi, CreateApi, UpdateApi, BatchDeleteApi } from '../../src/types'
+import { SearchApi, CreateApi, UpdateApi, BatchDeleteApi } from '../../src'
 
 let id: number = 0
 

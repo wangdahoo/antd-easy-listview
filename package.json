@@ -1,6 +1,6 @@
 {
   "name": "@wangdahoo/antd-easy-listview",
-  "version": "0.1.25",
+  "version": "0.1.26",
   "main": "dist/index.js",
   "umd": "dist/umd/index.js",
   "repository": "git@github.com:wangdahoo/antd-easy-listview.git",
@@ -67,5 +67,6 @@
     "iOS >= 8",
     "Firefox >= 20",
     "Android > 4.4"
-  ]
+  ],
+  "types": "src/index.d.ts"
 }
