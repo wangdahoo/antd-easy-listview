@@ -1,4 +1,5 @@
 import { CSSProperties } from 'react'
+import { ExpandableConfig } from 'antd/lib/table/interface'
 
 export type CreateApi<T> = (record: Partial<T>, props: any) => Promise<void>
 
@@ -54,6 +55,7 @@ export interface ListViewOptions<T> {
     } & {
         scrollToFirstRowOnChange?: boolean | undefined
     }) | undefined
+    tableExpandable?: ExpandableConfig<object>
     filters: (string | SelectFilter)[]
     createItemEnabled: boolean
     batchDeleteEnabled: boolean

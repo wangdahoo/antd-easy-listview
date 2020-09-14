@@ -8,6 +8,7 @@ import classnames from 'classnames'
 import FullscreenModal from './FullscreenModal'
 import { defaultOptions } from './defaultOptions'
 import { ListViewOptions, SelectFilter as _SelectFilter, ExportProps } from './types'
+import { ExpandableConfig } from 'antd/lib/table/interface'
 
 const Search = Input.Search
 
@@ -30,6 +31,7 @@ export function createListView<T>(options: Partial<ListViewOptions<T>>) {
         tableOperations,
         tableWrapper,
         tableScroll,
+        tableExpandable,
         filters = [] as (string | SelectFilter)[],
         createItemEnabled,
         batchDeleteEnabled,
@@ -396,6 +398,7 @@ export function createListView<T>(options: Partial<ListViewOptions<T>>) {
                 }}
                 rowSelection={batchDeleteEnabled ? rowSelection : undefined}
                 scroll={tableScroll}
+                expandable={tableExpandable}
             />
         )
 

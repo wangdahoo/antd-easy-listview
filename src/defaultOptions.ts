@@ -1,4 +1,5 @@
 
+import { ExpandableConfig } from 'antd/lib/table/interface'
 import { ListViewOptions } from './types'
 
 export const defaultOptions = <T>(): ListViewOptions<T> => ({
@@ -15,6 +16,7 @@ export const defaultOptions = <T>(): ListViewOptions<T> => ({
     tableOperations: ['update', 'delete'],
     tableWrapper: 'card',
     tableScroll: undefined,
+    tableExpandable: { rowExpandable: () => false } as ExpandableConfig<object>,
     filters: [],
     createItemEnabled: true,
     batchDeleteEnabled: false,

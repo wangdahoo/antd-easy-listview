@@ -270,6 +270,11 @@ var defaultOptions = function defaultOptions() {
     tableOperations: ['update', 'delete'],
     tableWrapper: 'card',
     tableScroll: undefined,
+    tableExpandable: {
+      rowExpandable: function rowExpandable() {
+        return false;
+      }
+    },
     filters: [],
     createItemEnabled: true,
     batchDeleteEnabled: false,
@@ -325,6 +330,7 @@ function createListView(options) {
       tableOperations = _ref.tableOperations,
       tableWrapper = _ref.tableWrapper,
       tableScroll = _ref.tableScroll,
+      tableExpandable = _ref.tableExpandable,
       _ref$filters = _ref.filters,
       filters = _ref$filters === void 0 ? [] : _ref$filters,
       createItemEnabled = _ref.createItemEnabled,
@@ -965,7 +971,8 @@ function createListView(options) {
         }()
       },
       rowSelection: batchDeleteEnabled ? rowSelection : undefined,
-      scroll: tableScroll
+      scroll: tableScroll,
+      expandable: tableExpandable
     });
     return /*#__PURE__*/React.createElement("div", {
       className: classnames('ant-layout', 'elv-list-view', className)
