@@ -1,9 +1,8 @@
 // import React from 'react'
 import '@wangdahoo/antd-easy-form/dist/index.css'
 import { FormItemType } from '@wangdahoo/antd-easy-form'
-// import '../dist/index.css'
-// import { createListViewOptions, createListView } from '../dist'
-import { createListViewOptions, createListView, SelectFilter } from '../src'
+import '../dist/index.css'
+import { createListView, ListViewOptions, SelectFilter } from '..'
 import { getAllUsers, createUser, updateUser, deleteUsers, batchDeleteUsers, User } from './api'
 // import { Button, message } from 'antd'
 
@@ -118,7 +117,6 @@ const tableColumns = [
 // }
 
 const options = {
-    ...createListViewOptions(),
     itemName: '人员',
     // extraAddOn,
     createFormItems,
@@ -202,8 +200,8 @@ const options = {
     deleteItem: deleteUsers,
     batchDeleteEnabled: true,
     batchDeleteItems: batchDeleteUsers,
-    // exportEnabled: false,
-    // exportItems: console.log
-}
+    exportEnabled: true,
+    exportItems: console.log
+} as Partial<ListViewOptions<User>>
 
 export default createListView(options)

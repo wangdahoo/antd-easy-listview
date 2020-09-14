@@ -313,35 +313,36 @@ var defaultOptions = function defaultOptions() {
 var Search = Input.Search;
 function createListView(options) {
   if (!options.itemName) throw new Error('itemName 不能为空');
-  options = Object.assign({}, defaultOptions(), options || {});
-  var _options = options,
-      itemName = _options.itemName,
-      className = _options.className,
-      extraWidth = _options.extraWidth,
-      extraSearchPlaceholder = _options.extraSearchPlaceholder,
-      extraAddOn = _options.extraAddOn,
-      tableClassName = _options.tableClassName,
-      tableColumns = _options.tableColumns,
-      tableOperations = _options.tableOperations,
-      tableWrapper = _options.tableWrapper,
-      tableScroll = _options.tableScroll,
-      filters = _options.filters,
-      createItemEnabled = _options.createItemEnabled,
-      batchDeleteEnabled = _options.batchDeleteEnabled,
-      createItem = _options.createItem,
-      deleteItem = _options.deleteItem,
-      updateItem = _options.updateItem,
-      fetchItems = _options.fetchItems,
-      batchDeleteItems = _options.batchDeleteItems,
-      createFormItems = _options.createFormItems,
-      updateFormItems = _options.updateFormItems,
-      formLabelWidth = _options.formLabelWidth,
-      detailTitle = _options.detailTitle,
-      createDetailComponent = _options.createDetailComponent,
-      creationTitle = _options.creationTitle,
-      createCreationComponent = _options.createCreationComponent,
-      exportEnabled = _options.exportEnabled,
-      exportItems = _options.exportItems;
+  options = _objectSpread2(_objectSpread2({}, defaultOptions()), options || {});
+  var _ref = options,
+      itemName = _ref.itemName,
+      className = _ref.className,
+      extraWidth = _ref.extraWidth,
+      extraSearchPlaceholder = _ref.extraSearchPlaceholder,
+      extraAddOn = _ref.extraAddOn,
+      tableClassName = _ref.tableClassName,
+      tableColumns = _ref.tableColumns,
+      tableOperations = _ref.tableOperations,
+      tableWrapper = _ref.tableWrapper,
+      tableScroll = _ref.tableScroll,
+      _ref$filters = _ref.filters,
+      filters = _ref$filters === void 0 ? [] : _ref$filters,
+      createItemEnabled = _ref.createItemEnabled,
+      batchDeleteEnabled = _ref.batchDeleteEnabled,
+      createItem = _ref.createItem,
+      deleteItem = _ref.deleteItem,
+      updateItem = _ref.updateItem,
+      fetchItems = _ref.fetchItems,
+      batchDeleteItems = _ref.batchDeleteItems,
+      createFormItems = _ref.createFormItems,
+      updateFormItems = _ref.updateFormItems,
+      formLabelWidth = _ref.formLabelWidth,
+      detailTitle = _ref.detailTitle,
+      createDetailComponent = _ref.createDetailComponent,
+      creationTitle = _ref.creationTitle,
+      createCreationComponent = _ref.createCreationComponent,
+      exportEnabled = _ref.exportEnabled,
+      exportItems = _ref.exportItems;
   var FORM_TYPE_CREATE = 1;
   var FORM_TYPE_UPDATE = 2;
   return function ListView(props) {
@@ -905,10 +906,10 @@ function createListView(options) {
         total: pagination.total,
         current: pagination.pageNum,
         pageSize: pagination.pageSize,
-        showTotal: function showTotal(total, _ref2) {
-          var _ref3 = _slicedToArray(_ref2, 2),
-              start = _ref3[0],
-              end = _ref3[1];
+        showTotal: function showTotal(total, _ref3) {
+          var _ref4 = _slicedToArray(_ref3, 2),
+              start = _ref4[0],
+              end = _ref4[1];
 
           return "\u5171 ".concat(total, " \u6761\u8BB0\u5F55\uFF0C\u5F53\u524D ").concat(start, " ~ ").concat(end);
         },

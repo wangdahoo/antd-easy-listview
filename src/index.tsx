@@ -11,10 +11,13 @@ import { ListViewOptions, SelectFilter as _SelectFilter, ExportProps } from './t
 
 const Search = Input.Search
 
-export function createListView<T>(options: ListViewOptions<T>) {
+export function createListView<T>(options: Partial<ListViewOptions<T>>) {
     if (!options.itemName) throw new Error('itemName 不能为空')
 
-    options = Object.assign({}, defaultOptions(), options || {})
+    options = {
+        ...defaultOptions(),
+        ...(options || {})
+    }
 
     const {
         itemName,
@@ -27,7 +30,7 @@ export function createListView<T>(options: ListViewOptions<T>) {
         tableOperations,
         tableWrapper,
         tableScroll,
-        filters,
+        filters = [] as (string | SelectFilter)[],
         createItemEnabled,
         batchDeleteEnabled,
         createItem,
@@ -50,7 +53,7 @@ export function createListView<T>(options: ListViewOptions<T>) {
         // export options
         exportEnabled,
         exportItems
-    } = options
+    } = options as ListViewOptions<T>
 
     const FORM_TYPE_CREATE = 1
     const FORM_TYPE_UPDATE = 2
