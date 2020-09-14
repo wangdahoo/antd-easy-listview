@@ -4,7 +4,7 @@ export type CreateApi<T> = (record: Partial<T>, props: any) => Promise<void>
 
 export type UpdateApi<T> = (record: Partial<T>, props: any) => Promise<void>
 
-export type DeleteAPi<T> = (record: Partial<T>, props: any) => Promise<void>
+export type DeleteApi<T> = (record: Partial<T>, props: any) => Promise<void>
 
 export interface SelectFilter {
     name: string,
@@ -59,7 +59,7 @@ export interface ListViewOptions<T> {
     batchDeleteEnabled: boolean
     createItem: CreateApi<T>
     updateItem: UpdateApi<T>
-    deleteItem: DeleteAPi<T>
+    deleteItem: DeleteApi<T>
     fetchItems: SearchApi<T>
     batchDeleteItems: BatchDeleteApi<T>
 
