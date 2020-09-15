@@ -1,10 +1,12 @@
-// import React from 'react'
+import React from 'react'
 import '@wangdahoo/antd-easy-form/dist/index.css'
 import { FormItemType } from '@wangdahoo/antd-easy-form'
 import '../dist/index.css'
 import { createListView, ListViewOptions, SelectFilter } from '..'
 import { getAllUsers, createUser, updateUser, deleteUsers, batchDeleteUsers, User } from './api'
 // import { Button, message } from 'antd'
+
+import { CodeOutlined } from '@ant-design/icons'
 
 const createFormItems = (props: any) => [
     {
@@ -143,6 +145,22 @@ const options = {
     },
     tableWrapper: 'none' as 'card'|'none',
     tableColumns,
+    tableOperations: [
+        {
+            text: '自定义',
+            icon: <CodeOutlined />,
+            onOperation: console.log
+        },
+        'update',
+        'delete'
+    ],
+    // 测试 tableExpandable
+    // tableExpandable: {
+    //     rowExpandable: record => true,
+    //     expandedRowRender: record => {
+    //         return '哈哈'
+    //     }
+    // },
     filters: [
         'name',
         {

@@ -38,6 +38,13 @@ export type ExportApi = (exportProps: ExportProps, props: any) => void
 
 export type BatchDeleteApi<T> = (selectdRecords: Partial<T>[], props: any) => Promise<void>
 
+export type TableOperation<T> = {
+    type?: 'update'|'delete'|'custom'
+    icon?: React.ReactNode
+    text: string
+    onOperation?: (record: T) => void
+}
+
 export interface ListViewOptions<T> {
     title?: string|boolean
     itemName: string
@@ -47,7 +54,8 @@ export interface ListViewOptions<T> {
     extraAddOn?: (props: any, onRefresh: () => Promise<void>) => (string | JSX.Element)
     tableClassName: string
     tableColumns: any[]
-    tableOperations: ('update'|'delete')[]
+    tableOperations: ('update'|'delete'|TableOperation<T>)[]
+    tableOperationsStyle: CSSProperties
     tableWrapper: 'card'|'none'
     tableScroll: ({
         x?: string | number | true | undefined

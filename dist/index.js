@@ -268,6 +268,7 @@ var defaultOptions = function defaultOptions() {
     tableClassName: '',
     tableColumns: [],
     tableOperations: ['update', 'delete'],
+    tableOperationsStyle: {},
     tableWrapper: 'card',
     tableScroll: undefined,
     tableExpandable: {
@@ -328,6 +329,7 @@ function createListView(options) {
       tableClassName = _ref.tableClassName,
       tableColumns = _ref.tableColumns,
       tableOperations = _ref.tableOperations,
+      tableOperationsStyle = _ref.tableOperationsStyle,
       tableWrapper = _ref.tableWrapper,
       tableScroll = _ref.tableScroll,
       tableExpandable = _ref.tableExpandable,
@@ -764,34 +766,55 @@ function createListView(options) {
     }
 
     var renderOperations = function renderOperations(_, record) {
+      var finalOperations = tableOperations.map(function (operation) {
+        if (operation === 'update') {
+          return {
+            type: 'update',
+            icon: /*#__PURE__*/React.createElement(EditOutlined, null),
+            text: '编辑',
+            onOperation: onEdit
+          };
+        }
+
+        if (operation === 'delete') {
+          return {
+            type: 'delete',
+            icon: /*#__PURE__*/React.createElement(DeleteOutlined, null),
+            text: '删除',
+            onOperation: onDelete
+          };
+        }
+
+        return _objectSpread2({
+          type: 'custom'
+        }, operation);
+      });
       return /*#__PURE__*/React.createElement("div", {
         className: "operations"
-      }, tableOperations.indexOf('update') > -1 ? /*#__PURE__*/React.createElement(Button, {
-        type: "link",
-        size: "small",
-        icon: /*#__PURE__*/React.createElement(EditOutlined, null),
-        onClick: function onClick() {
-          return onEdit(record);
-        }
-      }, "\u7F16\u8F91") : null, tableOperations.indexOf('delete') > -1 ? /*#__PURE__*/React.createElement(Button, {
-        type: "link",
-        danger: true,
-        size: "small",
-        icon: /*#__PURE__*/React.createElement(DeleteOutlined, null),
-        onClick: function onClick() {
-          return onDelete(record);
-        }
-      }, "\u5220\u9664") : null);
+      }, finalOperations.map(function (operation, operationIndex) {
+        return /*#__PURE__*/React.createElement(Button, {
+          key: operationIndex,
+          type: "link",
+          size: "small",
+          icon: operation.icon,
+          danger: operation.type === 'delete' ? true : undefined,
+          onClick: function onClick() {
+            if (operation.onOperation) {
+              operation.onOperation(record);
+            }
+          }
+        }, operation.text);
+      }));
     };
 
     var createTableColumns = function createTableColumns(tableColumns, renderOperations) {
-      return tableColumns.concat(tableOperations.length > 0 ? [{
+      return tableColumns.concat(tableOperations.length > 0 ? [_objectSpread2({
         title: '操作',
         key: 'operations',
         align: 'center',
-        width: tableOperations.length > 1 ? 160 : 80,
+        width: tableOperations.length * 80,
         render: renderOperations
-      }] : []).map(function (col) {
+      }, tableOperationsStyle)] : []).map(function (col) {
         return _objectSpread2(_objectSpread2({}, col), {}, {
           ellipsis: true
         }, col.detailLink ? {

@@ -7,7 +7,7 @@ import { Form } from '@wangdahoo/antd-easy-form'
 import classnames from 'classnames'
 import FullscreenModal from './FullscreenModal'
 import { defaultOptions } from './defaultOptions'
-import { ListViewOptions, SelectFilter as _SelectFilter, ExportProps } from './types'
+import { ListViewOptions, SelectFilter as _SelectFilter, ExportProps, TableOperation } from './types'
 import { ExpandableConfig } from 'antd/lib/table/interface'
 
 const Search = Input.Search
@@ -29,6 +29,7 @@ export function createListView<T>(options: Partial<ListViewOptions<T>>) {
         tableClassName,
         tableColumns,
         tableOperations,
+        tableOperationsStyle,
         tableWrapper,
         tableScroll,
         tableExpandable,
@@ -266,19 +267,42 @@ export function createListView<T>(options: Partial<ListViewOptions<T>>) {
         }
 
         const renderOperations = (_: any, record: T) => {
+            const finalOperations: TableOperation<T>[] = tableOperations.map(operation => {
+                if (operation === 'update') {
+                    return {
+                        type: 'update',
+                        icon: <EditOutlined />,
+                        text: '编辑',
+                        onOperation: onEdit
+                    }
+                }
+
+                if (operation === 'delete') {
+                    return {
+                        type: 'delete',
+                        icon: <DeleteOutlined />,
+                        text: '删除',
+                        onOperation: onDelete
+                    }
+                }
+
+                return {
+                    type: 'custom',
+                    ...operation
+                }
+            })
+
             return (
                 <div className="operations">
-                    {tableOperations.indexOf('update') > -1 ? (
-                        <Button type="link" size="small" icon={<EditOutlined />} onClick={() => onEdit(record)}>
-                            编辑
+                    {finalOperations.map((operation, operationIndex) => (
+                        <Button key={operationIndex} type="link" size="small" icon={operation.icon} danger={operation.type === 'delete' ? true : undefined} onClick={() => {
+                            if (operation.onOperation) {
+                                operation.onOperation(record)
+                            }
+                        }}>
+                            {operation.text}
                         </Button>
-                    ) : null}
-
-                    {tableOperations.indexOf('delete') > -1 ? (
-                        <Button type="link" danger size="small" icon={<DeleteOutlined />} onClick={() => onDelete(record)}>
-                            删除
-                        </Button>
-                    ) : null}
+                    ))}
                 </div>
             )
         }
@@ -292,8 +316,9 @@ export function createListView<T>(options: Partial<ListViewOptions<T>>) {
                                 title: '操作',
                                 key: 'operations',
                                 align: 'center',
-                                width: tableOperations.length > 1 ? 160 : 80,
-                                render: renderOperations
+                                width: tableOperations.length * 80,
+                                render: renderOperations,
+                                ...tableOperationsStyle
                             }
                         ]
                         : []

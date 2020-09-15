@@ -14,6 +14,7 @@ export const defaultOptions = <T>(): ListViewOptions<T> => ({
     tableClassName: '',
     tableColumns: [],
     tableOperations: ['update', 'delete'],
+    tableOperationsStyle: {},
     tableWrapper: 'card',
     tableScroll: undefined,
     tableExpandable: { rowExpandable: () => false } as ExpandableConfig<object>,
