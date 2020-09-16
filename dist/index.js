@@ -202,7 +202,7 @@ function FullscreenModal(props, ref) {
         Modal.confirm({
           centered: true,
           title: '提示',
-          content: "\u786E\u5B9A\u5220\u9664\u8BE5".concat(props.itemName, "\uFF1F"),
+          content: "\u786E\u5B9A\u5220\u9664".concat(props.itemName ? '该' + props.itemName : '', "\uFF1F"),
           onOk: function () {
             var _onOk = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
               return regeneratorRuntime.wrap(function _callee2$(_context2) {
@@ -800,7 +800,7 @@ function createListView(options) {
           danger: operation.type === 'delete' ? true : undefined,
           onClick: function onClick() {
             if (operation.onOperation) {
-              operation.onOperation(record);
+              operation.onOperation(record, props);
             }
           }
         }, operation.text);

@@ -5,7 +5,7 @@ import { ArrowLeftOutlined, DeleteOutlined } from '@ant-design/icons'
 
 export interface FullscreenModalProps {
     title: string | React.Component<{}, {}, any> | React.FC<{}> | undefined
-    itemName: string
+    itemName?: string
     onBack: () => void | Promise<void>
     onDelete?: () => void | Promise<void>
     children: ReactChildren | null
@@ -46,7 +46,7 @@ export function FullscreenModal(props: FullscreenModalProps, ref: any) {
                         Modal.confirm({
                             centered: true,
                             title: '提示',
-                            content: `确定删除该${props.itemName}？`,
+                            content: `确定删除${props.itemName ? '该' + props.itemName : ''}？`,
                             onOk: async function () {
                                 if (props.onDelete) {
                                     await props.onDelete()

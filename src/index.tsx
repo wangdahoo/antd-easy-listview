@@ -297,7 +297,7 @@ export function createListView<T>(options: Partial<ListViewOptions<T>>) {
                     {finalOperations.map((operation, operationIndex) => (
                         <Button key={operationIndex} type="link" size="small" icon={operation.icon} danger={operation.type === 'delete' ? true : undefined} onClick={() => {
                             if (operation.onOperation) {
-                                operation.onOperation(record)
+                                operation.onOperation(record, props)
                             }
                         }}>
                             {operation.text}

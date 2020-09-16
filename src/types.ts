@@ -42,7 +42,7 @@ export type TableOperation<T> = {
     type?: 'update'|'delete'|'custom'
     icon?: React.ReactNode
     text: string
-    onOperation?: (record: T) => void
+    onOperation?: (record: T, props: any) => void
 }
 
 export interface ListViewOptions<T> {
