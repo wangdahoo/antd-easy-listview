@@ -13,15 +13,13 @@ import { ExpandableConfig } from 'antd/lib/table/interface'
 const Search = Input.Search
 
 export function createListView<T>(options: Partial<ListViewOptions<T>>) {
-    if (!options.itemName) throw new Error('itemName 不能为空')
-
     options = {
         ...defaultOptions(),
         ...(options || {})
     }
 
     const {
-        itemName,
+        itemName = '',
         className,
         extraWidth,
         extraSearchPlaceholder,
@@ -217,10 +215,10 @@ export function createListView<T>(options: Partial<ListViewOptions<T>>) {
             Modal.confirm({
                 centered: true,
                 title: '提示',
-                content: `确定删除该${itemName}？`,
+                content: `确定删除该${itemName || '记录'}？`,
                 onOk: async function () {
                     await deleteItem(record, props)
-                    message.success(`删除${itemName}成功`)
+                    message.success(`删除${itemName || '记录'}成功`)
                     await onFetchItems(keyword, formatFilters(filters), 1, pagination.pageSize)
                 }
             })
@@ -230,10 +228,10 @@ export function createListView<T>(options: Partial<ListViewOptions<T>>) {
             Modal.confirm({
                 centered: true,
                 title: '提示',
-                content: `确定删除选中的${itemName}？`,
+                content: `确定删除选中的${itemName || '记录'}？`,
                 onOk: async function () {
                     await batchDeleteItems(selectedRecords, props)
-                    message.success(`批量删除${itemName}成功`)
+                    message.success(`批量删除${itemName || '记录'}成功`)
                     setSelectedRecords([])
                     await onFetchItems(keyword, formatFilters(filters), 1, pagination.pageSize)
                 }
@@ -431,7 +429,7 @@ export function createListView<T>(options: Partial<ListViewOptions<T>>) {
             <div className={classnames('ant-layout', 'elv-list-view', className)}>
                 <div className='ant-layout-content'>
                     {tableWrapper !== 'none' ? (
-                        <Card title={options.title === false ? null : options.title || `${itemName}列表`} extra={listExtra}>
+                        <Card title={options.title === false ? null : options.title || (itemName ? `${itemName}列表` : '')} extra={listExtra}>
                             {listContent}
                         </Card>
                     ) : (

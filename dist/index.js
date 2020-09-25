@@ -318,10 +318,10 @@ var defaultOptions = function defaultOptions() {
 
 var Search = Input.Search;
 function createListView(options) {
-  if (!options.itemName) throw new Error('itemName 不能为空');
   options = _objectSpread2(_objectSpread2({}, defaultOptions()), options || {});
   var _ref = options,
-      itemName = _ref.itemName,
+      _ref$itemName = _ref.itemName,
+      itemName = _ref$itemName === void 0 ? '' : _ref$itemName,
       className = _ref.className,
       extraWidth = _ref.extraWidth,
       extraSearchPlaceholder = _ref.extraSearchPlaceholder,
@@ -637,7 +637,7 @@ function createListView(options) {
       Modal.confirm({
         centered: true,
         title: '提示',
-        content: "\u786E\u5B9A\u5220\u9664\u8BE5".concat(itemName, "\uFF1F"),
+        content: "\u786E\u5B9A\u5220\u9664\u8BE5".concat(itemName || '记录', "\uFF1F"),
         onOk: function () {
           var _onOk = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
             return regeneratorRuntime.wrap(function _callee$(_context) {
@@ -648,7 +648,7 @@ function createListView(options) {
                     return deleteItem(record, props);
 
                   case 2:
-                    message.success("\u5220\u9664".concat(itemName, "\u6210\u529F"));
+                    message.success("\u5220\u9664".concat(itemName || '记录', "\u6210\u529F"));
                     _context.next = 5;
                     return onFetchItems(keyword, formatFilters(filters), 1, pagination.pageSize);
 
@@ -673,7 +673,7 @@ function createListView(options) {
       Modal.confirm({
         centered: true,
         title: '提示',
-        content: "\u786E\u5B9A\u5220\u9664\u9009\u4E2D\u7684".concat(itemName, "\uFF1F"),
+        content: "\u786E\u5B9A\u5220\u9664\u9009\u4E2D\u7684".concat(itemName || '记录', "\uFF1F"),
         onOk: function () {
           var _onOk2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
             return regeneratorRuntime.wrap(function _callee2$(_context2) {
@@ -684,7 +684,7 @@ function createListView(options) {
                     return batchDeleteItems(selectedRecords, props);
 
                   case 2:
-                    message.success("\u6279\u91CF\u5220\u9664".concat(itemName, "\u6210\u529F"));
+                    message.success("\u6279\u91CF\u5220\u9664".concat(itemName || '记录', "\u6210\u529F"));
                     setSelectedRecords([]);
                     _context2.next = 6;
                     return onFetchItems(keyword, formatFilters(filters), 1, pagination.pageSize);
@@ -1002,7 +1002,7 @@ function createListView(options) {
     }, /*#__PURE__*/React.createElement("div", {
       className: "ant-layout-content"
     }, tableWrapper !== 'none' ? /*#__PURE__*/React.createElement(Card, {
-      title: options.title === false ? null : options.title || "".concat(itemName, "\u5217\u8868"),
+      title: options.title === false ? null : options.title || (itemName ? "".concat(itemName, "\u5217\u8868") : ''),
       extra: listExtra
     }, listContent) : /*#__PURE__*/React.createElement("div", {
       className: "table-wrapper"
