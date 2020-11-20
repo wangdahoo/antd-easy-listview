@@ -8,7 +8,6 @@ import classnames from 'classnames'
 import FullscreenModal from './FullscreenModal'
 import { defaultOptions } from './defaultOptions'
 import { ListViewOptions, SelectFilter as _SelectFilter, ExportProps, TableOperation } from './types'
-import { ExpandableConfig } from 'antd/lib/table/interface'
 
 const Search = Input.Search
 

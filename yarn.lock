@@ -1422,15 +1422,10 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@wangdahoo/antd-easy-form@^0.1.13":
-  version "0.1.13"
-  resolved "https://registry.yarnpkg.com/@wangdahoo/antd-easy-form/-/antd-easy-form-0.1.13.tgz#c2975617dcf838088d992b707294f3f175aba4b9"
-  integrity sha512-WXLxrDlHMlIk9cNAt/jLxyQF81Pvrm+ilD1ZA/EIMmq14s0BFzMB02/xtShabqvJAp7jBtEQbTc5b2omPezV+A==
-  dependencies:
-    antd "^4.1.5"
-    classnames "^2.2.6"
-    react "^16.13.1"
-    react-dom "^16.13.1"
+"@wangdahoo/antd-easy-form@^0.1.29":
+  version "0.1.29"
+  resolved "https://registry.npmjs.org/@wangdahoo/antd-easy-form/-/antd-easy-form-0.1.29.tgz#525ca71a0a77589076e6b854323b389ba7b716f2"
+  integrity sha512-Xridlb3RlzERmnzRi3aGs8cD8FQ3WYpSOLgMDf16vrvt0b0W3X6mkBOivBlSGFpICd1F2WjEbNHuG+r4HLN+Og==
 
 abab@^2.0.0:
   version "2.0.4"
